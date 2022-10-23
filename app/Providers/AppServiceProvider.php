@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
     {
 
         if (!session()->has('lang')) {
-            session()->put('en');
+            session()->put('lang', 'en');
         }
 
     }
