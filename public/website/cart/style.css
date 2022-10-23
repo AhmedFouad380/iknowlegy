@@ -1,0 +1,140 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+    font-size: 16px;
+    font-family: 'Times New Roman', Times, serif;
+}
+/* this is main */
+#main-card{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 15px;
+    width: 300px;
+    padding-top: 15px;
+    text-transform: capitalize;
+    margin: 0 auto;
+    font-size: 0.8rem
+}
+#main-card form section {
+    width: 270px
+}
+
+/* sec 1 */
+#main-card form section:first-child {
+    padding: 15px;
+    border-radius: 15px;
+    background-color: #F1F5F7
+}
+#main-card form section:first-child div {
+    display: flex;
+    justify-content: space-between
+}
+#main-card form section:first-child div span{
+    display: block
+}
+#main-card form section:first-child div span:last-child{
+    display: block;
+    padding-right: 15px
+}
+#main-card form section:first-child div:first-child,
+#main-card form section:first-child div:last-child {
+    background-color: #fff;
+    padding: 10px 0 10px 10px;
+    border-radius: 15px
+}
+#main-card form section:first-child div:last-child {
+    margin-top:10px
+}
+
+/*  sec 2 */
+#main-card form section:last-child {
+    margin: 15px 0 15px 0
+}
+#main-card form section:last-child div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 15px;
+    margin-bottom: 15px
+}
+#main-card form section:last-child div p {
+    margin:0 20px 0 5px
+}
+#main-card form section:last-child div img {
+    padding: 5px 5px 5px 0
+}
+#main-card form section:last-child div input {
+    margin-left: 10px
+}
+#main-card form section:last-child div:nth-child(5) {
+    justify-content: space-between
+}
+#main-card form section:last-child div:nth-child(5) p,
+#main-card form section:last-child div:nth-child(5) input {
+    padding: 5px 5px 5px 0
+}
+#main-card form section:last-child div:nth-child(5) input {
+    margin-right: 10px
+}
+#main-card form section:last-child div:last-child {
+    flex-direction: column;
+    background-color: #F1F5F7
+}
+#main-card form section:last-child div:last-child div:first-child {
+    background-color: #fff;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 12px 7px 12px 7px;
+    display: none
+}
+#main-card form section:last-child div:last-child div:first-child p {
+    line-height: 40px
+}
+#main-card form section:last-child div:last-child div:first-child p:last-child{
+    line-height:18px
+}
+#main-card form section:last-child div:last-child div:last-child {
+    width: 250px;
+    margin-top: 15px
+}
+#main-card form section:last-child div:last-child div:last-child input {
+    background-color: #3181BF;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    text-align: center;
+    width: 100%;
+    margin-left: 0;
+    padding: 10px;
+    text-transform: uppercase;
+    transition: all 1s ease-in;
+}
+#main-card form section:last-child div:last-child div:last-child input:hover {
+    background-color: #fff;
+    color: #3181BF;
+    border: thin solid #3181BF
+}
+
+
+
+
+
+/* mobile */
+@media (min-width:576px) {
+}
+/* tablet */
+@media (min-width:768px) {
+}
+/* laptop+desktop */
+@media(min-width:992px) {
+}
+/* larg desktop */
+@media(min-width:1200px) {
+}
