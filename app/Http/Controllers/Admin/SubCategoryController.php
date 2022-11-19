@@ -120,4 +120,9 @@ class SubCategoryController extends Controller
         $data = SubCategory::where('category_id',$id)->get();
         return view('admin.SubCategory.modelShow',compact('data'));
     }
+    public function GetSubCategorySearch($id){
+        $data = SubCategory::where('category_id',$id)->get();
+        return view('admin.SubCategory.modelShow2',compact('data'));
+    }
+
 }

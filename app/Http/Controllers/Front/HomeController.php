@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\Answer;
 use App\Models\Cart;
+use App\Models\Category;
 use App\Models\Course;
 use App\Models\Enrollment;
 use App\Models\Lesson;
@@ -13,6 +14,7 @@ use App\Models\PromoCode;
 use App\Models\PromoCodeRelation;
 use App\Models\Questions;
 use App\Models\SubCategory;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Auth;
 use Owenoj\LaravelGetId3\GetId3;
@@ -26,6 +28,40 @@ class HomeController extends Controller
         return view('front.Courses',compact('Cat','courses'));
     }
 
+
+    public function SubCategory($slug){
+        $Cat = Category::where('slug',$slug)->firstOrFail();
+        $subCat =      SubCategory::where('category_id',$Cat->id)->get();
+
+        return view('front.categories',compact('Cat','subCat'));
+    }
+
+    public function search(Request $request){
+        $data = Course::where('is_active','active');
+        if(isset($request->search)){
+        $data->where('ar_title','like','%'.$request->search.'%')->
+        Orwhere('en_title','like','%'.$request->search.'%');
+        }
+        if(isset($request->category_id) && $request->category_id != 0){
+            $data->where('main_category_id',$request->category_id);
+        }
+        if(isset($request->subcategory_id) && $request->subcategory_id != 0){
+            $data->where('sub_category_id',$request->subcategory_id);
+        }
+        if(isset($request->sort) && $request->sort != 0){
+            if($request->sort == 'low_price'){
+                $data->OrdarBy('price','asc');
+            }
+            if($request->sort == 'high_price'){
+                $data->OrdarBy('price','desc');
+            }
+
+        }
+        $courses = $data->paginate(10);
+
+        return view('front.Search',compact('courses'));
+
+    }
     public function Course($slug){
         $Course = Course::where('slug',$slug)->firstOrFail();
 
@@ -173,5 +209,20 @@ class HomeController extends Controller
         $data = Questions::where('id',$id)->where('is_active','active')->firstOrFail();
         $Answers = Answer::where('question_id',$id)->paginate(10);
         return view('front.QuestionDetails',compact('data','Answers'));
+    }
+
+    public function addWishList(Request $request){
+
+        if(Wishlist::where('user_id',Auth::guard('web')->id())->where('course_id',$request->id)->count() > 0){
+            Wishlist::where('user_id',Auth::guard('web')->id())->where('course_id',$request->id)->delete();
+        }else{
+            if(Auth::guard('web')->check()){
+            $data = new Wishlist();
+            $data->user_id=Auth::guard('web')->id();
+            $data->course_id=$request->id;
+            $data->save();
+             }
+        }
+        return response()->json(['message'=>'success']);
     }
 }

@@ -28,8 +28,14 @@
                     <div class="chat">
                         <a href="{{url('IDISCUSS')}}" target="_blank">
                         <span><i class="fa-solid fa-comments"></i></span>
-                        <small> IDISCUSS</small>
+                        <small> {{__('lang.IDISCUSS')}}</small>
                         </a>
+                        <a  data-bs-toggle="modal" data-bs-target="#SIGN" target="_blank">
+                            <span>
+                                <i class="fa-solid fa-user"></i></span>
+                            <small> {{__('lang.Login')}} </small>
+                        </a>
+
                     </div>
                 </div>
                 <div class="col-6 col-md-6 col-lg-6 d-flex flex-row-reverse">
@@ -52,9 +58,9 @@
             </div>
         </div>
     </section>
-    <nav class="navbar #navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="d-flex navbar #navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{{url('/')}}">
                 <div class="image-responsive">
                     <img src="{{$Setting->find(1)->logo}}">
                 </div>
@@ -64,327 +70,465 @@
                 <i class="fa-solid fa-bars"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav m-auto">
-                    <li class="nav-item">
-                        <a class="nav-link #nav-link active" aria-current="page" href="{{url('/')}}">{{__("lang.Home")}}</a>
-                    </li>
-                    <li class="dropOneLink nav-item ">
-                            <a href="#" style="color:#000" class="dropdown-toggle nav-link" data-toggle="dropdown">{{__('lang.Categories')}} <b class="caret"></b></a>
-                        <ul class="dropdown-menu multi-level dropOne">
+                <ul class="navbar-nav ">
+                    <li class="nav-item dropdown" id="myDropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            <svg  style="width: 15px" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="grid-2" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-grid-2 fa-lg"><path fill="currentColor" d="M192 80c0-26.5-21.5-48-48-48H48C21.5 32 0 53.5 0 80v96c0 26.5 21.5 48 48 48h96c26.5 0 48-21.5 48-48V80zm0 256c0-26.5-21.5-48-48-48H48c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48h96c26.5 0 48-21.5 48-48V336zM256 80v96c0 26.5 21.5 48 48 48h96c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48H304c-26.5 0-48 21.5-48 48zM448 336c0-26.5-21.5-48-48-48H304c-26.5 0-48 21.5-48 48v96c0 26.5 21.5 48 48 48h96c26.5 0 48-21.5 48-48V336z" class=""></path></svg>
+                            {{__('lang.Categories')}}
+                        </a>
+                        <ul class="dropdown-menu">
                             @inject('MainCategories','App\Models\Category')
                             @inject('SubCategories','App\Models\SubCategory')
                             @foreach($MainCategories->where('is_active','active')->get() as $MainCat)
-                                <li class="dropdown-submenu" style="font-size: 10px"    >
-                                    <a href="#" style="color:#000"  class="dropdown-toggle " data-toggle="dropdown">{{$MainCat->title}}</a>
-                                    <ul class="dropdown-menu" style="font-size: 10px">
-                                        @foreach($SubCategories->where('is_active','active')->where('category_id',$MainCat->id)->get() as $SubCat)
-                                            <li><a style="color:#000"  href="{{url('Category',$SubCat->slug)}}">{{$SubCat->title}}</a></li>
-                                        @endforeach
-                                    </ul>
-                                </li>
-                            @endforeach
+                            <li> <a class="dropdown-item" href="#"> {{$MainCat->title}} </a>
+                                <ul class="submenu dropdown-menu">
+                                    @foreach($SubCategories->where('is_active','active')->where('category_id',$MainCat->id)->get() as $SubCat)
+                                        <li><a class="dropdown-item" href="{{url('Category',$SubCat->slug)}}">{{$SubCat->title}}</a></li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                                @endforeach
                         </ul>
                     </li>
 
 
-                            @inject('Pages','App\Models\Page')
-                            @foreach($Pages->where('is_active','active')->where('type','header')->get() as $page)
-                        <li class="nav-item">
-                            <a class="nav-link #nav-link active" href="{{url('Page',$page->slug)}}">{{$page->title}}</a>
-                        </li>
 
-                            @endforeach
+{{--                            @inject('Pages','App\Models\Page')--}}
+{{--                            @foreach($Pages->where('is_active','active')->where('type','header')->get() as $page)--}}
+{{--                        <li class="nav-item">--}}
+{{--                            <a class="nav-link #nav-link active" href="{{url('Page',$page->slug)}}">{{$page->title}}</a>--}}
+{{--                        </li>--}}
 
-                    <li class="nav-item">
-                        <a class="nav-link #nav-link active" href="{{url('contact')}}">{{__('lang.contact')}}</a>
+{{--                            @endforeach--}}
+
+{{--                    <li class="nav-item">--}}
+{{--                        <a class="nav-link #nav-link active" href="{{url('contact')}}">{{__('lang.contact')}}</a>--}}
+{{--                    </li>--}}
+                    <li class="mob-hidden">
+                        <form action="{{url('Search')}}" method="get">
+                            <div class="search-box" style="top: 21px!important;">
+                                <div class="move-box">
+                                    <input type="text" name="search" placeholder=" {{__('lang.search')}}">
+                                    <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                        </form>
+
                     </li>
                 </ul>
 
-                <div class="d-flex align-items-center">
-                    <div class="sign-login">
-                        @if(Auth::guard('web')->check())
-                            <div class="dropdown" >
-                                <button class=" login dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    hi,  {{Auth::guard('web')->user()->name}}
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="{{url('MyCourses')}}">{{__('lang.MyCourses')}}</a></li>
-                                    <li><a class="dropdown-item" href="#">{{__('lang.profile')}}</a></li>
-                                    <li><a class="dropdown-item" href="{{url('logoutUser')}}">{{__('admin.logout')}}</a></li>
-                                </ul>
-                            </div>
-                        @elseif(Auth::guard('instructor')->check())
-                            <div class="dropdown" >
-                                <button class=" login dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    hi,  {{Auth::guard('instructor')->user()->name}}
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="{{route('InstractorDashboard')}}">{{__('admin.Dashboard')}}</a></li>
-                                    <li><a class="dropdown-item" href="#">{{__('lang.profile')}}</a></li>
-                                    <li><a class="dropdown-item" href="{{url('logoutUser')}}">{{__('admin.logout')}}</a></li>
-                                </ul>
-                            </div>
-                        @elseif(Auth::guard('admin')->check())
-                            <div class="dropdown" >
-                                <button class=" login dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    hi,  {{Auth::guard('admin')->user()->name}}
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="{{url('Dashboard')}}">{{__('admin.Dashboard')}}</a></li>
-                                    <li><a class="dropdown-item" href="{{url('logoutUser')}}">logout</a></li>
-                                </ul>
-                            </div>
-                        @else
+            </div>
+            <div class="d-flex align-items-center mob-hidden" >
+                <div class="sign-login">
+                    @if(Auth::guard('web')->check())
+                        <div class="dropdown" >
+                            <button class=" login dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                hi,  {{Auth::guard('web')->user()->name}}
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="{{url('MyCourses')}}">{{__('lang.MyCourses')}}</a></li>
+                                <li><a class="dropdown-item" href="#">{{__('lang.profile')}}</a></li>
+                                <li><a class="dropdown-item" href="{{url('logoutUser')}}">{{__('admin.logout')}}</a></li>
+                            </ul>
+                        </div>
+                    @elseif(Auth::guard('instructor')->check())
+                        <div class="dropdown" >
+                            <button class=" login dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                hi,  {{Auth::guard('instructor')->user()->name}}
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="{{route('InstractorDashboard')}}">{{__('admin.Dashboard')}}</a></li>
+                                <li><a class="dropdown-item" href="#">{{__('lang.profile')}}</a></li>
+                                <li><a class="dropdown-item" href="{{url('logoutUser')}}">{{__('admin.logout')}}</a></li>
+                            </ul>
+                        </div>
+                    @elseif(Auth::guard('admin')->check())
+                        <div class="dropdown" >
+                            <button class=" login dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                hi,  {{Auth::guard('admin')->user()->name}}
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="{{url('Dashboard')}}">{{__('admin.Dashboard')}}</a></li>
+                                <li><a class="dropdown-item" href="{{url('logoutUser')}}">logout</a></li>
+                            </ul>
+                        </div>
+                    @else
 
-                            <button class="login"  data-bs-toggle="modal" data-bs-target="#exampleModal">sign up</button>
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">
-                                                <!-- MODEL-TITLE -->
-                                                <div class="model-img">
-                                                    <img src="{{$Setting->find(1)->logo}}">
-                                                </div>
-                                            </h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <!-- model body -->
-                                        <div class="modal-body">
-                                            <div class="row padding-row nav nav-tabs nav-bottom " id="nav-tab" role="tablist">
-                                                <div class="col-md-6 col-6 col-lg-6">
-                                                    <a class=" nav-link faq-tabs active nav-log" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">sign up as Student</a>
-                                                </div>
-                                                <div class="col-md-6 col-6 col-lg-6">
-                                                    <a class="nav-link faq-tabs nav-log" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">sign up as Instructor</a>
-                                                </div>
+                        <button class="login"  data-bs-toggle="modal" data-bs-target="#exampleModal">{{__('lang.Start teaching')}} </button>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">
+                                            <!-- MODEL-TITLE -->
+                                            <div class="model-img">
+                                                <img src="{{$Setting->find(1)->logo}}">
                                             </div>
-                                            <div class="tab-content" id="nav-tabContent">
-                                                <div class="tab-pane  faq-tabs fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                                                    <!-- 1 المحتوى -->
-
-                                                    <form action="{{url('RegisterStudent')}}" method="post" >
-                                                        @csrf
-                                                        <div class="col-md-12 col-12 col-lg-12 form-login">
-                                                            <div class="row">
-                                                                <div class="col-md-12 col-12 col-lg-12">
-                                                                    <label>full name <span>*</span></label>
-                                                                    <input class="form-control " type="text"  required name="name" placeholder="enter your name">
-                                                                </div>
-
-                                                                <div class="col-md-12 col-12col-lg-12">
-                                                                    <label>email adress <span>*</span></label>
-                                                                    <input class="form-control" type="email" name="email" required placeholder="enter your email">
-                                                                </div>
-
-                                                                <div class=" col-md-12 col-12 col-lg-12">
-                                                                    <label>code <span>*</span></label><label>phone <span>*</span></label>
-                                                                    <div class="d-flex">
-                                                                        <input type="text" name="code" required id="txtPhone" class="form-control code">
-                                                                        <input type="tel" name="phone"  required class="form-control tel">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6 col-6 col-lg-6">
-                                                                    <label>password <span>*</span></label>
-                                                                    <input class="form-control " type="password" required name="password" placeholder="enter your password">
-                                                                </div>
-                                                                <div class="col-md-6 col-6 col-lg-6">
-                                                                    <label>confirm password <span>*</span></label>
-                                                                    <input class="form-control " type="password" required name="password_confirmation" placeholder="confirm your password">
-                                                                </div>
-                                                                <div class="col-md-12 col-lg-12 col-12">
-                                                                    <div class="d-flex top-check">
-                                                                        <input type="checkbox" required >
-                                                                        <p class="policy">By signing up, you agree to our <a><span>Terms</span></a>of Use and Privacy <a><span>Policy</span></a> .*</p>
-                                                                    </div>
-
-                                                                </div>
-                                                                <div class="col-md-12 col-lg-12 col-12 " style="text-align: right; margin-top:15px">
-
-                                                                    <button type="button" class="btn close" data-bs-dismiss="modal">Close</button>
-                                                                    <button type="submit" class="btn sign-up">sign up</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                    </form>
-
-                                                </div>
-                                                <div class="tab-pane  fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                                    <!--  2 المحتوى -->
-                                                    <form method="post" action="{{url('RegisterInstructor')}}" >
-                                                        @csrf
-                                                        <div class="col-md-12 col-12 col-lg-12 top-package">
-                                                            <div class="row">
-                                                                @foreach(\App\Models\InstructorPackage::where('is_active','active')->get() as $Packages)
-                                                                    <div class="col-md-4 col-4 col-lg-4">
-                                                                        <div class="box-package " data-id="{{$Packages->id}}">
-                                                                            <div class="header-package
+                                        </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <!-- model body -->
+                                    <div class="modal-body">
+                                        <div class="row padding-row nav nav-tabs nav-bottom " id="nav-tab" role="tablist">
+                                            <div class="col-md-12 col-12 col-lg-12">
+                                                <a class="nav-link faq-tabs nav-log active" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">{{__('lang.sign up as Instructor')}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="tab-content" id="nav-tabContent">
+                                            <div class="tab-pane  faq-tabs fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                                <!--  2 المحتوى -->
+                                                <form method="post" action="{{url('RegisterInstructor')}}" >
+                                                    @csrf
+                                                    <div class="col-md-12 col-12 col-lg-12 top-package">
+                                                        <div class="row">
+                                                            @foreach(\App\Models\InstructorPackage::where('is_active','active')->get() as $Packages)
+                                                                <div class="col-md-4 col-4 col-lg-4">
+                                                                    <div class="box-package " data-id="{{$Packages->id}}">
+                                                                        <div class="header-package
                                                                             @if($Packages->color == 'gold') gold-pack @elseif($Packages->color == 'silver' ) silver-pack @endif">
-                                                                                <span class="taj"><i class="fa-solid fa-crown"></i></span>
-                                                                                <h5>{{$Packages->title}}</h5>
-                                                                            </div>
-                                                                            <div class="body-package">
-                                                                                <h6>egp {{$Packages->cash}}</h6>
-                                                                                <p>
-                                                                                    {!! $Packages->description !!}
-                                                                                </p>
-                                                                            </div>
-                                                                            <div class="footer-package @if($Packages->color == 'gold') gold-pack @elseif($Packages->color == 'silver' ) silver-pack @endif">
-                                                                                <div class="block-select all-select packageselect-{{$Packages->id}} " >select</div>
-                                                                                <div class="none-select all-selected packageselected-{{$Packages->id}}">selected<i class="fa-solid fa-circle-check"></i></div>
-                                                                            </div>
+                                                                            <span class="taj"><i class="fa-solid fa-crown"></i></span>
+                                                                            <h5>{{$Packages->title}}</h5>
+                                                                        </div>
+                                                                        <div class="body-package">
+                                                                            <h6>egp {{$Packages->cash}}</h6>
+                                                                            <p>
+                                                                                {!! $Packages->description !!}
+                                                                            </p>
+                                                                        </div>
+                                                                        <div class="footer-package @if($Packages->color == 'gold') gold-pack @elseif($Packages->color == 'silver' ) silver-pack @endif">
+                                                                            <div class="block-select all-select packageselect-{{$Packages->id}} " >select</div>
+                                                                            <div class="none-select all-selected packageselected-{{$Packages->id}}">selected<i class="fa-solid fa-circle-check"></i></div>
                                                                         </div>
                                                                     </div>
-                                                                @endforeach
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12 col-12 col-lg-12 form-login">
-                                                            <div class="row">
-                                                                <div class="col-md-6 col-6 col-lg-6 ">
-                                                                    <label>{{__('lang.name')}} <span>*</span></label>
-                                                                    <input class="form-control " type="text" placeholder="enter your name">
                                                                 </div>
-                                                                <input type="hidden" value="" id="package_id" required name="package_id">
-                                                                <div class="col-md-6 col-6 col-lg-6 ">
-                                                                    <label>{{__('lang.age')}} <span>*</span></label>
-                                                                    <input class="form-control " type="number" placeholder="enter your name">
-                                                                </div>
-
-                                                                <div class="col-md-12 col-12col-lg-12">
-                                                                    <label>{{__('lang.email')}} <span>*</span></label>
-                                                                    <input class="form-control" type="email" placeholder="enter your email">
-                                                                </div>
-
-                                                                <div class=" col-md-12 col-12 col-lg-12 ">
-                                                                    <label>code <span>*</span></label><label>{{__('lang.phone')}} <span>*</span></label>
-                                                                    <div class="d-flex">
-                                                                        <input type="text" class="form-control code">
-                                                                        <input type="tel" class="form-control tel">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12 col-12col-lg-12 mb-text">
-
-                                                                    <label> {{__('lang.about')}} <span>*</span></label>
-                                                                    <br>
-                                                                    <textarea cols="69" rows="3"></textarea>
-
-                                                                </div>
-
-                                                                <div class="col-md-6 col-6 col-lg-6 ">
-                                                                    <label>{{__('lang.password')}} <span>*</span></label>
-                                                                    <input class="form-control " type="email" placeholder="enter your password">
-                                                                </div>
-                                                                <div class="col-md-6 col-6 col-lg-6 ">
-                                                                    <label>{{__('lang.password_confirmation')}} <span>*</span></label>
-                                                                    <input class="form-control " type="password" placeholder="confirm your password">
-                                                                </div>
-
-                                                                <div class="col-md-12 col-12 col-lg-12 ">
-                                                                    <label>{{__('lang.upload your cv')}} <span>*</span></label>
-                                                                    <input class="form-control " type="file" placeholder="enter your name">
-                                                                </div>
-
-                                                                <div class="col-md-12 col-lg-12 col-12">
-                                                                    <div class="d-flex top-check">
-                                                                        <input type="checkbox">
-                                                                        <p class="policy">By signing up, you agree to our <a><span>Terms</span></a>of Use and Privacy <a><span>Policy</span></a> .*</p>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12 col-lg-12 col-12 ">
-                                                                    <div class="d-flex top-policy">
-                                                                        <input type="checkbox">
-                                                                        <p class="policy ">
-                                                                            I certify that the course(s) uploaded by me and their content(s) were created by me, and the copyrights are mine alone, and I am fully responsible for them and I bear all the legal responsibility, and acknowledge that providing false statements may lead to penalties under applicable law.
-                                                                        </p>
-                                                                    </div>
-
-                                                                </div>
-                                                                <div class="col-md-12 col-lg-12 col-12 " style="text-align: right;">
-
-                                                                    <button type="button" class="btn close" data-bs-dismiss="modal">Close</button>
-                                                                    <button type="button" class="btn sign-up">sign up</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <button class="sign"  data-bs-toggle="modal" data-bs-target="#SIGN">sign in</button>
-                            <div class="modal fade" id="SIGN" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">
-                                                <!-- MODEL-TITLE -->
-                                                <div class="model-img">
-                                                    <img src="{{$Setting->find(1)->logo}}">
-                                                </div>
-                                            </h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-
-                                            <div class="row padding-row nav nav-tabs nav-bottom " id="aa" role="tablist">
-                                                <div class="col-md-12 col-12 col-lg-12">
-                                                    <a class=" nav-link faq-tabs active nav-log" id="aa" data-toggle="tab" href="#aa" role="tab" aria-controls="nav-home" aria-selected="true">sign in as Student Or Instructor</a>
-                                                </div>
-                                            </div>
-                                            <form action="{{url('Userlogin ')}}" method="post" >
-                                                @csrf
-
-                                                <div class="col-md-12 col-12 col-lg-12 form-login">
-                                                    <div class="row">
-
-                                                        <div class="col-md-12 col-12col-lg-12">
-                                                            <label>email adress <span>*</span></label>
-                                                            <input class="form-control" type="email" name="email" required placeholder="enter your email">
-                                                        </div>
-
-
-                                                        <div class="col-md-12 col-12 col-lg-12">
-                                                            <label>password <span>*</span></label>
-                                                            <input class="form-control " type="password"  required name="password" placeholder="enter your password">
-                                                        </div>
-
-                                                        <div class="col-md-12 col-lg-12 col-12 " style="text-align: right; margin-top:15px">
-
-                                                            <button type="button" class="btn close" data-bs-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn sign-up">sign in</button>
+                                                            @endforeach
                                                         </div>
                                                     </div>
-                                                </div>
+                                                    <div class="col-md-12 col-12 col-lg-12 form-login">
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-6 col-lg-6 ">
+                                                                <label>{{__('lang.name')}} <span>*</span></label>
+                                                                <input class="form-control " type="text" placeholder="enter your name">
+                                                            </div>
+                                                            <input type="hidden" value="" id="package_id" required name="package_id">
+                                                            <div class="col-md-6 col-6 col-lg-6 ">
+                                                                <label>{{__('lang.age')}} <span>*</span></label>
+                                                                <input class="form-control " type="number" required placeholder="enter your name">
+                                                            </div>
 
-                                            </form>
+                                                            <div class="col-md-12 col-12 col-lg-12">
+                                                                <label>{{__('lang.email')}} <span>*</span></label>
+                                                                <input class="form-control" type="email" required placeholder="enter your email">
+                                                            </div>
 
+                                                            <div class=" col-md-12 col-12 col-lg-12 ">
+                                                                <label>code <span>*</span></label><label>{{__('lang.phone')}} <span>*</span></label>
+                                                                <div class="d-flex">
+                                                                    <input type="text" class="form-control code"  id="txtPhone2" required>
+                                                                    <input type="tel" class="form-control tel" required>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-12 col-12col-lg-12 mb-text">
+
+                                                                <label> {{__('lang.about')}} <span>*</span></label>
+                                                                <br>
+                                                                <textarea class="form-control" cols="69" rows="3"></textarea>
+
+                                                            </div>
+
+                                                            <div class="col-md-6 col-6 col-lg-6 ">
+                                                                <label>{{__('lang.password')}} <span>*</span></label>
+                                                                <input class="form-control " type="email" placeholder="enter your password">
+                                                            </div>
+                                                            <div class="col-md-6 col-6 col-lg-6 ">
+                                                                <label>{{__('lang.password_confirmation')}} <span>*</span></label>
+                                                                <input class="form-control " type="password" placeholder="confirm your password">
+                                                            </div>
+
+                                                            <div class="col-md-12 col-12 col-lg-12 ">
+                                                                <label>{{__('lang.upload your cv')}} <span>*</span></label>
+                                                                <input class="form-control " type="file" placeholder="enter your name">
+                                                            </div>
+
+                                                            <div class="col-md-12 col-lg-12 col-12">
+                                                                <div class="d-flex top-check">
+                                                                    <input type="checkbox">
+                                                                    <p class="policy">By signing up, you agree to our <a><span>Terms</span></a>of Use and Privacy <a><span>Policy</span></a> .*</p>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-12 col-lg-12 col-12 ">
+                                                                <div class="d-flex top-policy">
+                                                                    <input type="checkbox">
+                                                                    <p class="policy ">
+                                                                        I certify that the course(s) uploaded by me and their content(s) were created by me, and the copyrights are mine alone, and I am fully responsible for them and I bear all the legal responsibility, and acknowledge that providing false statements may lead to penalties under applicable law.
+                                                                    </p>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-md-12 col-lg-12 col-12 " style="text-align: right;">
+
+                                                                <button type="button" class="btn close" data-bs-dismiss="modal">{{__('lang.Close')}}</button>
+                                                                <button type="button" class="btn sign-up">{{__('lang.sign up')}}</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </form>
+                                            </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
-                        @endif
-                    </div>
+                        </div>
 
-                    <ul class="menu-cart">
-                        <li class="cart" style="width: 100%"><a href="{{url('cart')}}" >
+                        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">
+                                            <!-- MODEL-TITLE -->
+                                            <div class="model-img">
+                                                <img src="{{$Setting->find(1)->logo}}">
+                                            </div>
+                                        </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <!-- model body -->
+                                    <div class="modal-body">
+                                        <div class="row padding-row nav nav-tabs nav-bottom " id="nav-tab" role="tablist">
+                                            <div class="col-md-12 col-12 col-lg-12">
+                                                <a class=" nav-link faq-tabs active nav-log" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">{{__('lang.sign up as Student')}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="tab-content" id="nav-tabContent">
+                                            <div class="tab-pane  faq-tabs fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                                <!-- 1 المحتوى -->
+
+                                                <form action="{{url('RegisterStudent')}}" method="post" >
+                                                    @csrf
+                                                    <div class="col-md-12 col-12 col-lg-12 form-login">
+                                                        <div class="row">
+                                                            <div class="col-md-12 col-12 col-lg-12">
+                                                                <label>{{__('lang.name')}} <span>*</span></label>
+                                                                <input class="form-control " type="text"  required name="name" placeholder="enter your name">
+                                                            </div>
+
+                                                            <div class="col-md-12 col-12col-lg-12">
+                                                                <label>{{__('lang.email')}} <span>*</span></label>
+                                                                <input class="form-control" type="email" name="email" required placeholder="enter your email">
+                                                            </div>
+
+                                                            <div class=" col-md-12 col-12 col-lg-12">
+                                                                <label>{{__('lang.code')}} <span>*</span></label><label>{{__('lang.phone')}} <span>*</span></label>
+                                                                <div class="d-flex">
+                                                                    <input type="text" name="code" required id="txtPhone" class="form-control code">
+                                                                    <input type="tel" name="phone"  required class="form-control tel">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-6 col-6 col-lg-6">
+                                                                <label>{{__('lang.password')}} <span>*</span></label>
+                                                                <input class="form-control " type="password" required name="password" placeholder="enter your password">
+                                                            </div>
+                                                            <div class="col-md-6 col-6 col-lg-6">
+                                                                <label>{{__('lang.password_confirmation')}} <span>*</span></label>
+                                                                <input class="form-control " type="password" required name="password_confirmation" placeholder="confirm your password">
+                                                            </div>
+                                                            <div class="col-md-12 col-lg-12 col-12">
+                                                                <div class="d-flex top-check">
+                                                                    <input type="checkbox" required >
+                                                                    <p class="policy">By signing up, you agree to our <a><span>Terms</span></a>of Use and Privacy <a><span>Policy</span></a> .*</p>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-md-12 col-lg-12 col-12 " style="text-align: right; margin-top:15px">
+
+                                                                <button type="button" class="btn close" data-bs-dismiss="modal">{{__('lang.Close')}}</button>
+                                                                <button type="button" class="btn sign-up">{{__('lang.sign up')}}</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </form>
+
+                                            </div>
+                                            <div class="tab-pane  fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                                <!--  2 المحتوى -->
+                                                <form method="post" action="{{url('RegisterInstructor')}}" >
+                                                    @csrf
+                                                    <div class="col-md-12 col-12 col-lg-12 top-package">
+                                                        <div class="row">
+                                                            @foreach(\App\Models\InstructorPackage::where('is_active','active')->get() as $Packages)
+                                                                <div class="col-md-4 col-4 col-lg-4">
+                                                                    <div class="box-package " data-id="{{$Packages->id}}">
+                                                                        <div class="header-package
+                                                                            @if($Packages->color == 'gold') gold-pack @elseif($Packages->color == 'silver' ) silver-pack @endif">
+                                                                            <span class="taj"><i class="fa-solid fa-crown"></i></span>
+                                                                            <h5>{{$Packages->title}}</h5>
+                                                                        </div>
+                                                                        <div class="body-package">
+                                                                            <h6>egp {{$Packages->cash}}</h6>
+                                                                            <p>
+                                                                                {!! $Packages->description !!}
+                                                                            </p>
+                                                                        </div>
+                                                                        <div class="footer-package @if($Packages->color == 'gold') gold-pack @elseif($Packages->color == 'silver' ) silver-pack @endif">
+                                                                            <div class="block-select all-select packageselect-{{$Packages->id}} " >select</div>
+                                                                            <div class="none-select all-selected packageselected-{{$Packages->id}}">selected<i class="fa-solid fa-circle-check"></i></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 col-12 col-lg-12 form-login">
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-6 col-lg-6 ">
+                                                                <label>{{__('lang.name')}} <span>*</span></label>
+                                                                <input class="form-control " type="text" placeholder="enter your name">
+                                                            </div>
+                                                            <input type="hidden" value="" id="package_id" required name="package_id">
+                                                            <div class="col-md-6 col-6 col-lg-6 ">
+                                                                <label>{{__('lang.age')}} <span>*</span></label>
+                                                                <input class="form-control " type="number" required placeholder="enter your name">
+                                                            </div>
+
+                                                            <div class="col-md-12 col-12 col-lg-12">
+                                                                <label>{{__('lang.email')}} <span>*</span></label>
+                                                                <input class="form-control" type="email" required placeholder="enter your email">
+                                                            </div>
+
+                                                            <div class=" col-md-12 col-12 col-lg-12 ">
+                                                                <label>code <span>*</span></label><label>{{__('lang.phone')}} <span>*</span></label>
+                                                                <div class="d-flex">
+                                                                    <input type="text" class="form-control code"  id="txtPhone2" required>
+                                                                    <input type="tel" class="form-control tel" required>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-12 col-12col-lg-12 mb-text">
+
+                                                                <label> {{__('lang.about')}} <span>*</span></label>
+                                                                <br>
+                                                                <textarea class="form-control" cols="69" rows="3"></textarea>
+
+                                                            </div>
+
+                                                            <div class="col-md-6 col-6 col-lg-6 ">
+                                                                <label>{{__('lang.password')}} <span>*</span></label>
+                                                                <input class="form-control " type="email" placeholder="enter your password">
+                                                            </div>
+                                                            <div class="col-md-6 col-6 col-lg-6 ">
+                                                                <label>{{__('lang.password_confirmation')}} <span>*</span></label>
+                                                                <input class="form-control " type="password" placeholder="confirm your password">
+                                                            </div>
+
+                                                            <div class="col-md-12 col-12 col-lg-12 ">
+                                                                <label>{{__('lang.upload your cv')}} <span>*</span></label>
+                                                                <input class="form-control " type="file" placeholder="enter your name">
+                                                            </div>
+
+                                                            <div class="col-md-12 col-lg-12 col-12">
+                                                                <div class="d-flex top-check">
+                                                                    <input type="checkbox">
+                                                                    <p class="policy">By signing up, you agree to our <a><span>Terms</span></a>of Use and Privacy <a><span>Policy</span></a> .*</p>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-12 col-lg-12 col-12 ">
+                                                                <div class="d-flex top-policy">
+                                                                    <input type="checkbox">
+                                                                    <p class="policy ">
+                                                                        I certify that the course(s) uploaded by me and their content(s) were created by me, and the copyrights are mine alone, and I am fully responsible for them and I bear all the legal responsibility, and acknowledge that providing false statements may lead to penalties under applicable law.
+                                                                    </p>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-md-12 col-lg-12 col-12 " style="text-align: right;">
+
+                                                                <button type="button" class="btn close" data-bs-dismiss="modal">Close</button>
+                                                                <button type="button" class="btn sign-up">sign up</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="sign"  data-bs-toggle="modal" data-bs-target="#exampleModal2">{{__('lang.become learner')}}</button>
+                        <div class="modal fade" id="SIGN" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">
+                                            <!-- MODEL-TITLE -->
+                                            <div class="model-img">
+                                                <img src="{{$Setting->find(1)->logo}}">
+                                            </div>
+                                        </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <div class="row padding-row nav nav-tabs nav-bottom " id="aa" role="tablist">
+                                            <div class="col-md-12 col-12 col-lg-12">
+                                                <a class=" nav-link faq-tabs active nav-log" id="aa" data-toggle="tab" href="#aa" role="tab" aria-controls="nav-home" aria-selected="true">sign in as Student Or Instructor</a>
+                                            </div>
+                                        </div>
+                                        <form action="{{url('Userlogin')}}" method="post" >
+                                            @csrf
+
+                                            <div class="col-md-12 col-12 col-lg-12 form-login">
+                                                <div class="row">
+
+                                                    <div class="col-md-12 col-12col-lg-12">
+                                                        <label>{{__('lang.email')}} <span>*</span></label>
+                                                        <input class="form-control" type="email" name="email" required placeholder="enter your email">
+                                                    </div>
+
+
+                                                    <div class="col-md-12 col-12 col-lg-12">
+                                                        <label>{{__('lang.password')}} <span>*</span></label>
+                                                        <input class="form-control " type="password"  required name="password" placeholder="enter your password">
+                                                    </div>
+
+                                                    <div class="col-md-12 col-lg-12 col-12 " style="text-align: right; margin-top:15px">
+
+                                                        <button type="button" class="btn close" data-bs-dismiss="modal">
+                                                            {{__('lang.Close')}}</button>
+                                                        <button type="submit" class="btn sign-up">{{__('lang.Login')}}</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </form>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+
+                <ul class="menu-cart">
+                    <li class="cart" style="width: 100%"><a href="{{url('cart')}}" >
                                                 <span id="cart-count-data">
                                                 @if(Auth::guard('web')->check() && \App\Models\Cart::where('user_id',Auth::guard('web')->id())->count() > 0)
                                                         <span id="cart-count" >{{\App\Models\Cart::where('user_id',Auth::guard('web')->id())->count()}}</span>
                                                     @endif
                                                 </span>
-                                <i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
-                    </ul>
-                </div>
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+                </ul>
             </div>
+
         </div>
     </nav>
     <div class="line-color"></div>
@@ -420,7 +564,7 @@
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <div class="f_widget about-widget pl_70 wow fadeInLeft" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInLeft;">
-                            <h3 class="f-title f_600 t_color f_size_18">Contacts</h3>
+                            <h3 class="f-title f_600 t_color f_size_18">{{__('lang.contact')}}</h3>
                             <ul class="list-unstyled f_list">
 
                                 <li><a href="{{url('contact')}}" target="_blank">{{__('lang.Contact us')}} </a></li>
@@ -432,7 +576,7 @@
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <div class="f_widget about-widget pl_70 wow fadeInLeft" data-wow-delay="0.6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInLeft;">
-                            <h3 class="f-title f_600 t_color f_size_18">Pages</h3>
+                            <h3 class="f-title f_600 t_color f_size_18">{{__('lang.Pages')}}</h3>
                             <ul class="list-unstyled f_list">
                                 @foreach(\App\Models\Page::where('is_active','active')->where('type','footer')->get() as $Page)
                                 <li><a href="{{url('page',$Page->slug)}}" target="">{{$Page->title}}</a></li>
@@ -442,7 +586,7 @@
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <div class="f_widget social-widget pl_70 wow fadeInLeft" data-wow-delay="0.8s" style="visibility: visible; animation-delay: 0.8s; animation-name: fadeInLeft;">
-                            <h3 class="f-title f_600 t_color f_size_18">Socail Media</h3>
+                            <h3 class="f-title f_600 t_color f_size_18">{{__('lang.Socail Media')}}</h3>
                             <div class="f_social_icon">
                                 @inject('Setting','App\Models\Setting')
 
@@ -503,7 +647,26 @@
         });
         console.log(code)
     });
-    </script>
+
+    $(function() {
+        var code = "+20"; // Assigning value from model.
+        $('#txtPhone2').val(code);
+        $('#txtPhone2').intlTelInput({
+            autoHideDialCode: true,
+            autoPlaceholder: "ON",
+            dropdownContainer: document.body,
+            formatOnDisplay: true,
+            hiddenInput: "full_number",
+            initialCountry: "auto",
+            nationalMode: true,
+            placeholderNumberType: "MOBILE",
+            preferredCountries: ['US'],
+            separateDialCode: false
+        });
+        console.log(code)
+    });
+
+</script>
 <script>
 
     $('.box-package').on('click',function(){
@@ -669,6 +832,33 @@ $RejectPayment = session()->get("RejectPayment");
 
 @endif
 
+
+<script>
+    $('.addWishList').click(function () {
+        $(this).toggleClass('red')
+
+        id = $(this).data('id');
+        if({{Auth::guard('web')->check()}}){
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+            type: "get",
+            url: "{{url('addWishList')}}",
+            data: {"id": id,_token: CSRF_TOKEN},
+            success: function (data) {
+                // out =  '<span id="cart-count" >' + data + '</span>';
+
+                // $('#cart-count-data').html(out);
+                Swal.fire("@if(Session('lang') == 'ar' ) تم  @else Success @endif ", "@if(Session('lang') == 'ar' ) تم الاضافة بنجاح   @else Successfully ِAdded To WishList @endif", "success");
+
+            }
+        });
+        }else{
+            Swal.fire("@if(Session('lang') == 'ar' ) تم  @else Success @endif ", "@if(Session('lang') == 'ar' ) تم الاضافة بنجاح   @else Successfully ِAdded To WishList @endif", "success");
+
+        }
+    });
+
+</script>
 <script>
     $('.add-Cart').click(function () {
         id = $(this).data('id');

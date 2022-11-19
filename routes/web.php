@@ -27,8 +27,11 @@ Route::post('RegisterStudent',[\App\Http\Controllers\Front\AuthController::class
 Route::post('RegisterInstructor',[\App\Http\Controllers\Front\AuthController::class,'RegisterInstructor'])->name('RegisterInstructor');
 
 Route::get('Category/{slug}',[\App\Http\Controllers\Front\HomeController::class,'Category'])->name('Category');
+Route::get('SubCategory/{slug}',[\App\Http\Controllers\Front\HomeController::class,'SubCategory'])->name('SubCategory');
+
 Route::get('Course/{slug}',[\App\Http\Controllers\Front\HomeController::class,'Course'])->name('Course');
 Route::get('Careers',[\App\Http\Controllers\Front\HomeController::class,'Careers'])->name('Careers');
+Route::get('Search',[\App\Http\Controllers\Front\HomeController::class,'search'])->name('Search');
 Route::get('internships',[\App\Http\Controllers\Front\HomeController::class,'internships'])->name('internships');
 Route::get('IDISCUSS',[\App\Http\Controllers\Front\HomeController::class,'IDISCUSS'])->name('IDISCUSS');
 Route::get('QuestionDetails/{id}',[\App\Http\Controllers\Front\HomeController::class,'QuestionDetails'])->name('QuestionDetails');
@@ -81,6 +84,7 @@ Route::middleware(['web'])->group(function () {
     Route::get('remove-cart', [\App\Http\Controllers\Front\HomeController::class, 'RemoveCart']);
     Route::get('cart', [\App\Http\Controllers\Front\HomeController::class, 'cart']);
     Route::get('MyCourses', [\App\Http\Controllers\Front\HomeController::class, 'MyCourses']);
+    Route::get('addWishList', [\App\Http\Controllers\Front\HomeController::class, 'addWishList']);
 
 
 
@@ -183,7 +187,6 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/add-button-SubCategory/{id}', function ($id) {
         return view('admin/SubCategory/button',compact('id'));
     });
-    Route::get('GetSubCategory/{id}', [\App\Http\Controllers\Admin\SubCategoryController::class, 'GetSubCategory']);
 
 
     Route::get('Setting', [\App\Http\Controllers\Admin\SettingController::class, 'index']);
@@ -318,3 +321,5 @@ Route::get('Lesson_datatable', [\App\Http\Controllers\Admin\LessonsController::c
 
 Route::get('paymentInstractor','paymentInstractor@index')->name('paymentInstractor');
 Route::get('paymentInstractor2','paymentInstractor@index2')->name('paymentInstractor2');
+Route::get('GetSubCategory/{id}', [\App\Http\Controllers\Admin\SubCategoryController::class, 'GetSubCategory']);
+Route::get('GetSubCategorySearch/{id}', [\App\Http\Controllers\Admin\SubCategoryController::class, 'GetSubCategorySearch']);

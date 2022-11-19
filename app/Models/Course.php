@@ -76,4 +76,13 @@ class Course extends Model
     public function  Lessons(){
         return $this->HasMany(Lesson::class ,'course_id');
     }
+    public function Enrollment(){
+        return $this->hasMany(Enrollment::class,'course_id');
+    }
+    public function WithListCheck(){
+        return $this->HasOne(Wishlist::class , 'course_id')->
+        where('user_id',Auth::guard('web')->id())->withDefault([
+            'user_id'=>0,
+        ]);
+    }
 }

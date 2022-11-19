@@ -1320,6 +1320,17 @@ return [
     'Answer'=>'Answer',
     'Add Answer'=>'Add Answer',
     'report'=>'Report',
-    'views'=>'views'
-
+    'views'=>'views',
+    'Enrolled'=>'Enrolled',
+    'Sort'=>'Sort',
+    'lowprice'=>'Low Price',
+    'highprice'=>'High Price',
+    'Login'=>'Login',
+    'IDISCUSS'=>'IDISCUSS ',
+    'Start teaching'=>'Start Teaching ',
+    'become learner'=>'Become Learner ',
+    'sign up as Instructor'=>'Sign Up As Instructor ',
+    'sign up as Student'=>'Sign Up As Student ',
+    'sign up'=>'Sign up ',
+    'hours'=>'hours',
 ];

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Coming Soon Pink</title>
+    <link href="https://fonts.googleapis.com/css?family=Ruluko&display=swap" rel="stylesheet">
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-image: url("https://images.pexels.com/photos/1190830/pexels-photo-1190830.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+            background-attachment: fixed;
+            background-size: cover;
+            font-family: 'Ruluko', sans-serif;
+        }
+
+        main{
+            display:grid;
+            justify-content: center;
+            padding-top: 10%;
+        }
+
+        .mainText{
+            align-self: center;
+            color: white;
+            text-align: center;
+        }
+
+        .mainText h1 {
+            letter-spacing: 0.1em;
+            opacity: 80%;
+            font-size: 4em;
+            margin-bottom: 0.1em;
+
+        }
+
+        .mainText p {
+            letter-spacing: 0.1em;
+            font-size: 1.3em;
+        }
+
+        .timeContainer {
+            padding: 5%;
+        }
+
+        #timer-secs {
+            border-right: 0 !important;
+        }
+
+        .btn{
+            color: black;
+            opacity: 55%;
+            font-size: 1em;
+            width: 40%;
+            justify-self: center;
+            background-color: white;;
+            padding: 2%;
+            border-radius: 25px;
+            font-weight: bold;
+            outline: none;
+        }
+        #timer {
+            display: flex;
+            justify-content: space-around;
+            width: 70%;
+            text-align: center;
+            margin-left: 18%;
+        }
+
+        .resultTime {
+            display:flex;
+            flex-direction: column;
+            justify-content: space-around;
+            text-align: center;
+            border-right: solid 1px gray;
+            padding-right: 2%;
+
+        }
+
+        .number{
+            font-size: 2em;
+            color: black;
+            font-weight: bold;
+        }
+
+        .label{
+            color:black;
+            opacity: 50%;
+            font-size: 1.2em;
+
+        }
+    </style>
+</head>
+<body>
+<main>
+    <div class = "mainText">
+        <h1>Coming soon!</h1>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem, quod.</p>
+    </div>
+    <div class="timeContainer">
+        <p id="timer">
+            <span id="timer-days" class = "resultTime"></span>
+            <span id="timer-hours" class = "resultTime"></span>
+            <span id="timer-mins" class = "resultTime"></span>
+            <span id="timer-secs" class = "resultTime"></span>
+        </p>
+    </div>
+    <button class = "btn">Subscribe Now</button>
+</main>
+</body>
+<script>
+
+    //Determine the final date
+    let endDate = new Date("Jan 18, 2023 12:00:00").getTime();
+
+
+    let timer = setInterval(function() {
+
+        let now = new Date().getTime();
+        let t = endDate - now;
+
+        //If there is time left over
+        if (t >= 0) {
+
+            //t is currently in UTC format, have to transform it to days, hours, mins and secs
+            let days = Math.floor(t / (1000 * 60 * 60 * 24));
+            let hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let mins = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+            let secs = Math.floor((t % (1000 * 60)) / 1000);
+
+
+            // insert the result into the document
+            document.getElementById("timer-days").innerHTML = `<span class = "number">${days}</span> <span class='label'>Day(s)</span>`;
+            document.getElementById("timer-hours").innerHTML = `<span class = "number">${hours}</span> <span class='label'>Hour(s)</span>`;
+            document.getElementById("timer-mins").innerHTML = `<span class = "number">${mins}</span> <span class='label'>Min(s)</span>`;
+            document.getElementById("timer-secs").innerHTML = `<span class = "number">${secs}</span> <span class='label'>Sec(s)</span>`;
+
+
+            //If there is no time left over
+        } else {
+
+            document.getElementById("timer").innerHTML = "The countdown is over!";
+
+        }
+
+    }, 1000);
+    //This function will run every second
+</script>
+</html>

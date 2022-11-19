@@ -1339,6 +1339,17 @@ return [
     'Answer'=>'الاجابة',
     'Add Answer'=>'اضاف اجابة',
     'report'=>'ابلاغ',
-    'views'=>'المشاهدات'
-
+    'views'=>'المشاهدات',
+    'Enrolled'=>'التسجيلات',
+    'Sort'=>'ترتيب',
+    'lowprice'=>'اقل سعر',
+    'highprice'=>'اعلى سعر',
+    'Login'=>'تسجيل الدخول ',
+    'sign up'=>'تسجيل ',
+    'Start teaching'=>'ابدأ التدريس ',
+    'become learner'=>'ابدا التعلم ',
+    'IDISCUSS'=>'المناقشات ',
+    'sign up as Instructor'=>'قم بالتسجيل كمعلم ',
+    'sign up as Student'=>'قم بالتسجيل كطالب ',
+    'hours'=>'المدة',
 ];

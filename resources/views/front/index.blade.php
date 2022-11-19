@@ -12,12 +12,14 @@
                                         <h1 id="demo" data-value="{{__('lang.Join The HUGE')}}" data-value2="{{__('lang.Community Of')}}" data-value3="{{__('lang.IKNOWLEGY')}}"> </h1>
                                         <h5 class="move-box">{{__('lang.Learn From The Best Online Courses')}}</h5>
                                     </div>
+                                    <form action="{{url('Search')}}" method="get">
                                     <div class="search-box">
                                         <div class="move-box">
-                                            <input type="text" placeholder=" {{__('lang.search')}}">
-                                            <button><i class="fa fa-search" aria-hidden="true"></i></button>
+                                            <input type="text" name="search" placeholder=" {{__('lang.search')}}">
+                                            <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                                         </div>
                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -81,7 +83,7 @@
                 <div class="row">
                     @foreach(\App\Models\Category::where('is_active','active')->inRandomOrder()->limit(8)->get() as $Category)
                       <div class="col-lg-3 col-md-3 col-12">
-                          <a href="{{url('SubCategory',$Category->id)}}">
+                          <a href="{{url('SubCategory',$Category->slug)}}">
                         <div class="category-box" data-aos="fade-right">
                             <div class="category-icon">
                                 <svg width="116" height="82" viewBox="0 0 116 82" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -161,14 +163,18 @@
                                           <div class="data-card">
                                               <div class="flex-card">
                                                   <h6 title="learn photoshop">{{$course->title}}</h6>
-                                                  <div class="icon-card">
-                                                      <i class="fa fa-heart red" aria-hidden="true"></i>
-                                                  </div>
+                                                  <h5>
+                                                      <i class="fa fa-usd" aria-hidden="true"></i>
+                                                      {{$course->price}}
+                                                  </h5>
                                               </div>
-                                              <div class="teacher-name">
-                                                  {{$course->Instructor->name}}
+                                              <div class="teacher-name" style="padding-bottom: 5px">
+                                                  {{$course->SubCategory->title}}
                                               </div>
-                                              <div class="rating-box">
+                                              <div class="teacher-name" style="padding-bottom: 7px">
+                                                  By   {{$course->Instructor->name}}
+                                              </div>
+                                              <div style="padding-bottom: 5px" class="rating-box">
                                                             <span class="rating-item">
                                                                 <i class="fa fa-star gold" aria-hidden="true"></i>
                                                             </span>
@@ -185,17 +191,22 @@
                                                               <i class="fa fa-star gold" aria-hidden="true"></i>
                                                             </span>
                                               </div>
+
+
+
+
+
                                           </div>
                                       </div>
                                       <div class="d-flex course-deteils">
                                           <div class="hours">
                                               <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                              <span>{{$course->time}} hour</span>
+                                              <span> {{__('lang.hours')}} :{{$course->time}}</span>
                                           </div>
                                           <div class="lessons">
                                               <i class="fa fa-play-circle-o" aria-hidden="true"></i>
 
-                                              <span> {{$course->Lessons->count()}} lessons</span>
+                                              <span> {{__('lang.lessons')}} : {{$course->Lessons->count()}} </span>
                                           </div>
                                       </div>
                                   </div>
@@ -206,37 +217,42 @@
                                                   <img src="{{$course->image}}">
                                               </div>
                                               <div class="text-content">
-                                                  <h5>{{$course->title}}</h5>
-                                                  <h6> {{$course->Instructor->name}}</h6>
+                                                  <div class="flex-card">
+                                                      <h6 title="learn photoshop">{{$course->title}}</h6>
+                                                      <div class="icon-card">
+                                                          <i class="fa fa-heart addWishList " data-id="{{$course->id}}" aria-hidden="true"></i>
+                                                      </div>
+                                                  </div>
+                                                  {{--                                                      <h6> {{$course->Instructor->name}}</h6>/--}}
                                               </div>
                                           </div>
 
-                                         {!! $course->description !!}
+                                          {!! $course->description !!}
                                           <div class="trailer">
                                               <div class="last-course-data">
                                                   <div>
                                                         <span class="span">
                                                           <i class="fa fa-clock-o" aria-hidden="true"></i>
                                                         </span>
-                                                      <small>{{$course->time}} hours</small>
+                                                      <small> {{__('lang.hours')}} : {{$course->time}}</small>
                                                   </div>
                                                   <div>
                                                         <span class="span">
                                                           <i class="fa fa-play-circle-o" aria-hidden="true"></i>
                                                         </span>
-                                                      <small>{{$course->Lessons->count()}} lessons</small>
+                                                      <small>{{__('lang.lessons')}} : {{$course->Lessons->count()}} </small>
                                                   </div>
                                                   <div>
                                                       <span class="span">
                                                         <i class="fa fa-bar-chart" aria-hidden="true"></i>
                                                       </span>
-                                                      <small>{{$course->SubCategory->title}}</small>
+                                                      <small>{{__('lang.Enrolled')}} : {{$course->Enrollment->count()}}</small>
                                                   </div>
                                               </div>
                                               <div class="watch trailer">
-                                                  <a href="{{url('Course',$course->slug)}}" target="_blank">
+                                                  <a href="{{url('Course',$course->slug)}}">
                                                       <button class="btn-watch">
-                                                          details
+                                                          {{__('lang.details')}}
                                                           <span></span>
                                                           <span></span>
                                                           <span></span>

@@ -18,12 +18,14 @@
                             <div class="adress-head courses-pb">
                                 <div class="typewriter courses-header">
                                     <h1 class="move-box h1-minheight"> {{$Course->title}} </h1>
-                                    <h5 class="move-box h5-lighter">{!! $Course->description !!}
-                                    </h5>
+                                    <h3 class="move-box h5-lighter">
+                                        <i class="fa fa-usd" aria-hidden="true"></i>
+                                        <span class="price">{{$Course->price}}</span>
+                                    </h3>
                                 </div>
                                 <div>
                                     <div class="move-box">
-                                       <button class="btn1-course">whatch trailer</button>
+                                       <button data-bs-toggle="modal" data-bs-target="#exampleModal21" class="btn1-course">whatch trailer</button>
                                        <button class="btn1-course add-Cart" data-id="{{$Course->id}}" >Add to Cart</button>
                                     </div>
                                </div>
@@ -49,14 +51,14 @@
                                      <span class="rate"><i class="fa fa-star" aria-hidden="true"></i></span>
                                      <span class="rate"><i class="fa fa-star" aria-hidden="true"></i></span>
                                  </div>
-                                 <div class="course-price">
-                                     <i class="fa fa-usd" aria-hidden="true"></i>
-                                     <span class="price">{{$Course->price}}</span>
-                                 </div>
-                                 <div class="time">
-                                     <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                     <span>{{$Course->time}}</span>
-                                 </div>
+{{--                                 <div class="course-price">--}}
+{{--                                     <i class="fa fa-usd" aria-hidden="true"></i>--}}
+{{--                                     <span class="price">{{$Course->price}}</span>--}}
+{{--                                 </div>--}}
+{{--                                 <div class="time">--}}
+{{--                                     <i class="fa fa-clock-o" aria-hidden="true"></i>--}}
+{{--                                     <span>{{$Course->time}}</span>--}}
+{{--                                 </div>--}}
                              </div>
                          </div>
                     </div>
@@ -110,8 +112,8 @@
                                   <div class="card">
                                       <div class="card-header border-header" id="heading-1">
                                           <h5 class="mb-0">
-                                              <a role="button" class="collapse-title about-this" data-toggle="collapse" href="#collapse-1" aria-expanded="true" aria-controls="collapse-1">about this course
-                                              </a>
+                                              <li role="button" class="collapse-title about-this" data-toggle="collapse" href="#collapse-1" aria-expanded="true" aria-controls="collapse-1">{{__('lang.about this course')}}
+                                              </li>
                                           </h5>
                                       </div>
                                       <div id="collapse-1" class="collapse show" data-parent="#accordion" aria-labelledby="heading-1">
@@ -125,61 +127,107 @@
                                   <div class="card">
                                       <div class="card-header border-header" id="heading-2">
                                           <h5 class="mb-0">
-                                              <a class="collapsed collapse-title about-this" role="button" data-toggle="collapse" href="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
-                                                  lessons
-                                              </a>
+                                              <li class="collapsed collapse-title about-this" role="button" data-toggle="collapse" href="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
+                                                  {{__('lang.lessons')}}
+                                              </li>
                                           </h5>
                                       </div>
                                       <div id="collapse-2" class="collapse" data-parent="#accordion" aria-labelledby="heading-2">
                                           <div class="card-body">
-                                             <div class="row">
-                                                <div class="col-lg-12 col-md-12 col-12">
-                                                    <div class="border-div">
-                                                       <div class="row">
-                                                           <div class="col-lg-6 col-md-6 col-6">
-                                                                <span class="play"><i class="fa fa-play" aria-hidden="true"></i></span>
-                                                                <span class="gray-color style-words">introduction to typescript</span>
-                                                           </div>
-                                                           <div class="col-lg-6 col-md-6 col-6">
-                                                               <div class="d-flex reserved-span">
-                                                                    <span class="gray-color style-words"> 1:30:21 </span>
-                                                               </div>
-                                                           </div>
-                                                       </div>
-                                                    </div>
-                                               </div>
-                                                <div class="col-lg-12 col-md-12 col-12">
-                                                    <div class="border-div">
-                                                        <div class="row">
-                                                            <div class="col-lg-6 col-md-6 col-6">
-                                                                <span class="play"><i class="fa fa-play" aria-hidden="true"></i></span>
-                                                                <span class="gray-color style-words">introduction to typescript</span>
-                                                            </div>
-                                                            <div class="col-lg-6 col-md-6 col-6">
-                                                                <div class="d-flex reserved-span">
-                                                                    <span class="gray-color style-words"> 1:30:21 </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-12 col-md-12 col-12">
-                                                    <div class="border-div none-border">
-                                                       <div class="row">
-                                                           <div class="col-lg-6 col-md-6 col-6">
-                                                                <span class="play"><i class="fa fa-play" aria-hidden="true"></i></span>
-                                                                <span class="gray-color style-words">introduction to typescript</span>
-                                                           </div>
-                                                           <div class="col-lg-6 col-md-6 col-6">
-                                                               <div class="d-flex reserved-span">
-                                                                    <span class="gray-color style-words"> 1:30:21 </span>
-                                                               </div>
-                                                           </div>
-                                                       </div>
-                                                    </div>
-                                               </div>
+                                              <div class="row">
+                                                  <div class="col-lg-12 col-md-12 col-12">
+                                                      <div class="border-div">
+                                                          <div class="row">
+                                                              <div class="col-lg-6 col-md-6 col-6">
+                                                                  <span class="play"><i class="fa fa-play" aria-hidden="true"></i></span>
+                                                                  <span class="gray-color style-words">introduction to typescript</span>
+                                                              </div>
+                                                              <div class="col-lg-6 col-md-6 col-6">
+                                                                  <div class="d-flex reserved-span">
+                                                                      <span class="gray-color style-words"> 1:30:21 </span>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-lg-12 col-md-12 col-12">
+                                                      <div class="border-div">
+                                                          <div class="row">
+                                                              <div class="col-lg-6 col-md-6 col-6">
+                                                                  <span class="play"><i class="fa fa-play" aria-hidden="true"></i></span>
+                                                                  <span class="gray-color style-words">introduction to typescript</span>
+                                                              </div>
+                                                              <div class="col-lg-6 col-md-6 col-6">
+                                                                  <div class="d-flex reserved-span">
+                                                                      <span class="gray-color style-words"> 1:30:21 </span>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-lg-12 col-md-12 col-12">
+                                                      <div class="border-div none-border">
+                                                          <div class="row">
+                                                              <div class="col-lg-6 col-md-6 col-6">
+                                                                  <span class="play"><i class="fa fa-play" aria-hidden="true"></i></span>
+                                                                  <span class="gray-color style-words">introduction to typescript</span>
+                                                              </div>
+                                                              <div class="col-lg-6 col-md-6 col-6">
+                                                                  <div class="d-flex reserved-span">
+                                                                      <span class="gray-color style-words"> 1:30:21 </span>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
 
-                                             </div>
+                                              </div>
+
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="card">
+                                      <div class="card-header border-header" id="heading-3">
+                                          <h5 class="mb-0">
+                                              <li class="collapsed collapse-title about-this" role="button" data-toggle="collapse" href="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
+                                                  {{__('lang.Course Features')}}
+                                              </li>
+                                          </h5>
+                                      </div>
+                                      <div id="collapse-3" class="collapse" data-parent="#accordion" aria-labelledby="heading-2">
+                                          <div class="card-body">
+                                              <div class="row">
+                                                  <div class="col-lg-12 col-md-12 col-12">
+                                                      <div class="border-div">
+                                                          <div class="row">
+                                                              <div class="col-lg-6 col-md-6 col-6">
+                                                                  <span class="play"><i class="fa fa-clock" aria-hidden="true"></i></span>
+                                                                  <span class="gray-color style-words">{{__('lang.Duration')}}</span>
+                                                              </div>
+                                                              <div class="col-lg-6 col-md-6 col-6">
+                                                                  <div class="d-flex reserved-span">
+                                                                      <span class="gray-color style-words"> {{$Course->time}} </span>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-lg-12 col-md-12 col-12">
+                                                      <div class="border-div">
+                                                          <div class="row">
+                                                              <div class="col-lg-6 col-md-6 col-6">
+                                                                  <span class="play"><i class="fa fa-users" aria-hidden="true"></i></span>
+                                                                  <span class="gray-color style-words">{{__('lang.Enrolled')}}</span>
+                                                              </div>
+                                                              <div class="col-lg-6 col-md-6 col-6">
+                                                                  <div class="d-flex reserved-span">
+                                                                      <span class="gray-color style-words"> {{$Course->Enrollment->count()}} </span>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
 
                                           </div>
                                       </div>
@@ -436,6 +484,25 @@
        </section>
             <!-- this is footer -->
 
+               <div class="modal fade" id="exampleModal21" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                   <div class="modal-dialog modal-lg">
+                       <div class="modal-content">
+                           <div class="modal-header">
+                               <h5 class="modal-title" id="exampleModalLabel">
+                                   <!-- MODEL-TITLE -->
+                                  {{$Course->title}}
+                               </h5>
+                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                           </div>
+                           <!-- model body -->
+                           <div class="modal-body">
+                                {!! $Course->trailer_video !!}
+                           </div>
+                       </div>
+                   </div>
+               </div>
+
+
 @endsection
 
 @section('js')
@@ -456,15 +523,16 @@
 
 
         $('#heading-1').click(function () {
-            $('#collapse-1 ').addClass('show');
-            $('#collapse-2').removeClass('show');
+            $('#collapse-1 ').toggle('show');
         })
 
         $('#heading-2').click(function () {
-            $('#collapse-2').addClass('show');
-            $('#collapse-1').removeClass('show');
+            $('#collapse-2').toggle('show');
         })
 
+        $('#heading-3').click(function () {
+            $('#collapse-3').toggle('show');
+        })
     </script>
 
 

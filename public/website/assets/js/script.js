@@ -1,5 +1,5 @@
 
-	
+
 
   	/* AUTHOR LINK */
 	  $('.about-me-img').hover(function(){
@@ -104,7 +104,7 @@ $(".submited-box .success-message").show();
 }, 1500);
 });
 
-	
+
 	$.fn.jQuerySimpleCounter = function( options ) {
 	    var settings = $.extend({
 	        start:  0,
@@ -134,5 +134,38 @@ $('#number3').jQuerySimpleCounter({end: 359,duration: 2000});
 $('#number4').jQuerySimpleCounter({end: 246,duration: 2500});
 
 
+    document.addEventListener("DOMContentLoaded", function(){
+// make it as accordion for smaller screens
+        if (window.innerWidth < 992) {
 
-  
+            // close all inner dropdowns when parent is closed
+            document.querySelectorAll('.navbar .dropdown').forEach(function(everydropdown){
+                everydropdown.addEventListener('hidden.bs.dropdown', function () {
+                    // after dropdown is hidden, then find all submenus
+                    this.querySelectorAll('.submenu').forEach(function(everysubmenu){
+                        // hide every submenu as well
+                        everysubmenu.style.display = 'none';
+                    });
+                })
+            });
+
+            document.querySelectorAll('.dropdown-menu a').forEach(function(element){
+                element.addEventListener('click', function (e) {
+                    let nextEl = this.nextElementSibling;
+                    if(nextEl && nextEl.classList.contains('submenu')) {
+                        // prevent opening link if link needs to open dropdown
+                        e.preventDefault();
+                        if(nextEl.style.display == 'block'){
+                            nextEl.style.display = 'none';
+                        } else {
+                            nextEl.style.display = 'block';
+                        }
+
+                    }
+                });
+            })
+        }
+// end if innerWidth
+    });
+
+
