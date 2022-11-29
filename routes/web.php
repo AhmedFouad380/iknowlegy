@@ -77,6 +77,7 @@ Route::get('lang/{lang}', function ($lang) {
 
     return back();
 });
+Route::get('checkout', [\App\Http\Controllers\FawaterkController::class, 'Checkout']);
 
 Route::middleware(['web'])->group(function () {
 
@@ -85,7 +86,8 @@ Route::middleware(['web'])->group(function () {
     Route::get('cart', [\App\Http\Controllers\Front\HomeController::class, 'cart']);
     Route::get('MyCourses', [\App\Http\Controllers\Front\HomeController::class, 'MyCourses']);
     Route::get('addWishList', [\App\Http\Controllers\Front\HomeController::class, 'addWishList']);
-
+    Route::get('wishlist', [\App\Http\Controllers\Front\HomeController::class, 'WishList']);
+    Route::get('addReview', [\App\Http\Controllers\Front\HomeController::class, 'addReview']);
 
 
     Route::post('active_promo_code',[\App\Http\Controllers\Front\HomeController::class,'activePromoCode']);
@@ -217,6 +219,18 @@ Route::middleware(['admin'])->group(function () {
 
 });
 Route::middleware(['instructor'])->group(function () {
+
+    Route::get('media/manager', [ \App\Http\Controllers\MediaManagerController::class, 'index'])->name('media.index');
+    Route::post('media/index', [ \App\Http\Controllers\MediaManagerController::class, 'main'])->name('media.main');
+    Route::get('media/manager/create',  [ \App\Http\Controllers\MediaManagerController::class,'create'])->name('media.create');
+    Route::post('media/manager/store',  [ \App\Http\Controllers\MediaManagerController::class,'store'])->name('media.store');
+    Route::get('media/manager/show',  [ \App\Http\Controllers\MediaManagerController::class,'show'])->name('media.show');
+    Route::get('media/manager/edit/{id}',  [ \App\Http\Controllers\MediaManagerController::class,'edit'])->name('media.edit');
+    Route::post('media/manager/update/{id}',  [ \App\Http\Controllers\MediaManagerController::class,'update'])->name('media.update');
+    Route::post('media/manager/slide',  [ \App\Http\Controllers\MediaManagerController::class,'slide'])->name('media.slide');
+    Route::get('media/manager/filter/{type}',  [ \App\Http\Controllers\MediaManagerController::class,'filter'])->name('media.filter');
+    Route::get('media/manager/trash/{item}',  [ \App\Http\Controllers\MediaManagerController::class,'destroy'])->name('media.delete');
+
     Route::get('/Dashboard', function () {
         return view('admin.dashboard');
     })->name('InstractorDashboard');;

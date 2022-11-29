@@ -9,7 +9,7 @@ class Enrollment extends Model
 {
     use HasFactory;
 
-    public function Course(){
+    public function course(){
         return $this->belongsTo(Course::class ,'course_id');
     }
 

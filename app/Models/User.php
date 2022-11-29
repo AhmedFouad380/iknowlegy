@@ -54,4 +54,8 @@ class User extends Authenticatable
             $this->attributes['image'] = $imageFields;
         }
     }
+
+    public function Wishlist(){
+        return $this->HasMany(Wishlist::class ,'user_id');
+    }
 }

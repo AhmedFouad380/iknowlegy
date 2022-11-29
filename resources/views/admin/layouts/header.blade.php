@@ -1111,6 +1111,14 @@
                             <span class="menu-arrow d-lg-none"></span>
                         </a>
                     </div>
+
+                    <div
+                        class="menu-item @if(Request::segment(1) == 'media') here show @endif menu-lg-down-accordion me-lg-1">
+                        <a class="menu-link py-3" href="{{route('media.index')}}">
+                            <span class="menu-title">{{__('lang.MediaManger')}}</span>
+                            <span class="menu-arrow d-lg-none"></span>
+                        </a>
+                    </div>
                     <div
                         class="menu-item   @if(Request::segment(1) == 'Students') here show @endif menu-lg-down-accordion me-lg-1">
                         <a class="menu-link py-3" href="{{url('Students')}}">

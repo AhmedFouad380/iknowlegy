@@ -1,3 +1,11 @@
+@if(!Request::segment(1) == 'media')
+
+<div id="mySidenav" class="sidenav shadow rounded">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <div id="master_media_section"></div>
+</div>
+@endif
+
 <div class="footer py-4 d-flex flex-lg-column" id="kt_footer">
     <!--begin::Container-->
     <div class="container-xxl d-flex flex-column flex-md-row align-items-center justify-content-between">

@@ -13,6 +13,7 @@ use App\Models\Page;
 use App\Models\PromoCode;
 use App\Models\PromoCodeRelation;
 use App\Models\Questions;
+use App\Models\Rate;
 use App\Models\SubCategory;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
@@ -215,6 +216,8 @@ class HomeController extends Controller
 
         if(Wishlist::where('user_id',Auth::guard('web')->id())->where('course_id',$request->id)->count() > 0){
             Wishlist::where('user_id',Auth::guard('web')->id())->where('course_id',$request->id)->delete();
+            return response()->json(0);
+
         }else{
             if(Auth::guard('web')->check()){
             $data = new Wishlist();
@@ -222,7 +225,25 @@ class HomeController extends Controller
             $data->course_id=$request->id;
             $data->save();
              }
+            return response()->json(1);
+
         }
-        return response()->json(['message'=>'success']);
+    }
+    public function WishList(){
+        $Wishlists = Wishlist::where('user_id',Auth::guard('web')->id())->paginate(10);
+
+        return view('front.wishlist',compact('Wishlists'));
+    }
+    public function addReview(Request $request){
+
+        $data = new Rate();
+        $data->user_id=Auth::guard('web')->id();
+        $data->course_id=$request->course_id;
+        $data->rate=$request->rate_value;
+        $data->comment=$request->comment;
+        $data->save();
+
+        return back()->with('messageSuccess','Success');
+
     }
 }

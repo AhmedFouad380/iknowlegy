@@ -1333,4 +1333,10 @@ return [
     'sign up as Student'=>'Sign Up As Student ',
     'sign up'=>'Sign up ',
     'hours'=>'hours',
+    'wishlist'=>'wishlist',
+    'add review'=>'add review ',
+    'Socail Media'=>'Socail Media',
+    'about this course'=>'about this course',
+    'MediaManger'=>'Media Manager'
+
 ];

@@ -5,13 +5,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
-
+use Auth;
 class Course extends Model
 {
     use HasFactory;
-    protected $appends = ['title','description','long_description'];
+    protected $appends = ['title','description','long_description','is_wishlist','rate'];
 
-
+    public function getRateAttribute()
+    {
+        if (Wishlist::where('course_id',$this->id)->count() > 0) {
+         $count =    Wishlist::where('course_id',$this->id)->count();
+         $sum =   Wishlist::where('course_id',$this->id)->sum('rate');
+         $total = round($sum / $count);
+         return $total;
+        } else {
+            return 4;
+        }
+    }
+    public function getIsWishlistAttribute()
+    {
+        if (Auth::guard('web')->check() && Wishlist::where('user_id',Auth::guard('web')->id())->where('course_id',$this->id)->count() > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
     public function getTitleAttribute()
     {
         if ($locale = App::currentLocale() == "ar") {
@@ -84,5 +102,8 @@ class Course extends Model
         where('user_id',Auth::guard('web')->id())->withDefault([
             'user_id'=>0,
         ]);
+    }
+    public function Rates(){
+        return $this->HasMany(Rate::class ,'course_id');
     }
 }

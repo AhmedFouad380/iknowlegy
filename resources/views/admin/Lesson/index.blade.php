@@ -9,6 +9,20 @@
 
 @section('style')
     <style>
+        .sidenav {
+            height: 90%;
+            width: 0;
+            position: fixed;
+            /* z-index: 1049; */
+            z-index: 9999;
+            top: 5%;
+            right: 0;
+            background-color: #fff;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            border-radius: 5px;
+        }
         @media (min-width: 992px) {
             .aside-me .content {
                 padding-right: 30px;

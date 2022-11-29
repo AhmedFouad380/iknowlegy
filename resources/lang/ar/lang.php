@@ -1352,4 +1352,9 @@ return [
     'sign up as Instructor'=>'قم بالتسجيل كمعلم ',
     'sign up as Student'=>'قم بالتسجيل كطالب ',
     'hours'=>'المدة',
+    'wishlist'=>'المفضلة',
+    'add review'=>'اضف تقيمك ',
+    'Socail Media'=>'مواقع التواصل',
+    'about this course'=>'عن الدورة',
+    'MediaManger'=>'مدير الملفات',
 ];

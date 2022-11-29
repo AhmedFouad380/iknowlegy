@@ -72,6 +72,19 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-lg-9">
+
+                                <input value="" name="overview_url" class="icon" type="hidden">
+                                @error('overview_url') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+
+                                <br>
+
+                                <input type="hidden" name="category_url" class="category_url" value="">
+                                    {{-- media --}}
+                                    <a href="javascript:void(0)" onclick="openNav('{{ route('media.slide') }}', 'category')" class="btn btn-primary media-btn mt-2 p-2">Upload From Media <i class="fa fa-cloud-upload ml-2" aria-hidden="true"></i> </a>
+
+
+                            </div>
                             <div class="fv-row mb-7">
                                 <label class="required fw-bold fs-6 mb-2">{{__('lang.video')}}  </label>
 
@@ -196,6 +209,14 @@
     CKEDITOR.replace( 'editor3' );
     CKEDITOR.replace( 'editor4' );
 
+    function openNav(url, file) {
+        document.getElementById("mySidenav").style.width = "80%";
+        mediaType = file;
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+    }
 </script>
 
 <script type="text/javascript">

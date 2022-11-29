@@ -98,28 +98,95 @@
                                                       {{$course->price}}
                                                   </h5>
                                               </div>
-                                              <div class="teacher-name" style="padding-bottom: 5px">
+                                              <div class="teacher-name" style="margin-bottom: 13px">
                                                   {{$course->SubCategory->title}}
                                               </div>
                                               <div class="teacher-name" style="padding-bottom: 7px">
                                                   By   {{$course->Instructor->name}}
                                               </div>
                                               <div style="padding-bottom: 5px" class="rating-box">
-                                                            <span class="rating-item">
+                                                  @if($course->rate == 1)
+                                                      <span class="rating-item">
                                                                 <i class="fa fa-star gold" aria-hidden="true"></i>
                                                             </span>
-                                                  <span class="rating-item">
+                                                      <span class="rating-item">
+                                                                <i class="fa fa-star " aria-hidden="true"></i>
+                                                            </span>
+                                                      <span class="rating-item">
+                                                                <i class="fa fa-star " aria-hidden="true"></i>
+                                                            </span>
+                                                      <span class="rating-item">
+                                                                <i class="fa fa-star " aria-hidden="true"></i>
+                                                            </span>
+                                                      <span class="rating-item">
+                                                              <i class="fa fa-star " aria-hidden="true"></i>
+                                                            </span>
+                                                  @elseif($course->rate == 2)
+                                                      <span class="rating-item">
                                                                 <i class="fa fa-star gold" aria-hidden="true"></i>
                                                             </span>
-                                                  <span class="rating-item">
+                                                      <span class="rating-item">
                                                                 <i class="fa fa-star gold" aria-hidden="true"></i>
                                                             </span>
-                                                  <span class="rating-item">
+                                                      <span class="rating-item">
+                                                                <i class="fa fa-star " aria-hidden="true"></i>
+                                                            </span>
+                                                      <span class="rating-item">
+                                                                <i class="fa fa-star " aria-hidden="true"></i>
+                                                            </span>
+                                                      <span class="rating-item">
+                                                              <i class="fa fa-star " aria-hidden="true"></i>
+                                                            </span>
+                                                  @elseif($course->rate == 3)
+                                                      <span class="rating-item">
                                                                 <i class="fa fa-star gold" aria-hidden="true"></i>
                                                             </span>
-                                                  <span class="rating-item">
+                                                      <span class="rating-item">
+                                                                <i class="fa fa-star gold" aria-hidden="true"></i>
+                                                            </span>
+                                                      <span class="rating-item">
+                                                                <i class="fa fa-star gold" aria-hidden="true"></i>
+                                                            </span>
+                                                      <span class="rating-item">
+                                                                <i class="fa fa-star " aria-hidden="true"></i>
+                                                            </span>
+                                                      <span class="rating-item">
+                                                              <i class="fa fa-star " aria-hidden="true"></i>
+                                                            </span>
+                                                  @elseif($course->rate == 4)
+                                                      <span class="rating-item">
+                                                                <i class="fa fa-star gold" aria-hidden="true"></i>
+                                                            </span>
+                                                      <span class="rating-item">
+                                                                <i class="fa fa-star gold" aria-hidden="true"></i>
+                                                            </span>
+                                                      <span class="rating-item">
+                                                                <i class="fa fa-star gold" aria-hidden="true"></i>
+                                                            </span>
+                                                      <span class="rating-item">
+                                                                <i class="fa fa-star gold" aria-hidden="true"></i>
+                                                            </span>
+                                                      <span class="rating-item">
+                                                              <i class="fa fa-star " aria-hidden="true"></i>
+                                                            </span>
+                                                  @elseif($course->rate == 5)
+                                                      <span class="rating-item">
+                                                                <i class="fa fa-star gold" aria-hidden="true"></i>
+                                                            </span>
+                                                      <span class="rating-item">
+                                                                <i class="fa fa-star gold" aria-hidden="true"></i>
+                                                            </span>
+                                                      <span class="rating-item">
+                                                                <i class="fa fa-star gold" aria-hidden="true"></i>
+                                                            </span>
+                                                      <span class="rating-item">
+                                                                <i class="fa fa-star gold" aria-hidden="true"></i>
+                                                            </span>
+                                                      <span class="rating-item">
                                                               <i class="fa fa-star gold" aria-hidden="true"></i>
                                                             </span>
+                                                  @endif
+
                                               </div>
 
 
@@ -150,7 +217,7 @@
                                                   <div class="flex-card">
                                                       <h6 title="learn photoshop">{{$course->title}}</h6>
                                                       <div class="icon-card">
-                                                          <i class="fa fa-heart addWishList " data-id="{{$course->id}}" aria-hidden="true"></i>
+                                                          <i class="fa fa-heart @if($course->is_wishlist == 1) red @endif addWishList " data-id="{{$course->id}}" aria-hidden="true"></i>
                                                       </div>
                                                   </div>
                                                   {{--                                                      <h6> {{$course->Instructor->name}}</h6>/--}}
@@ -198,6 +265,7 @@
                                   </div>
                               </div>
                           </div>
+
 
                       @endforeach
 

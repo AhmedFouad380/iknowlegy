@@ -3,7 +3,37 @@
 <!--begin::Global Javascript Bundle(used by all pages)-->
 <script src="{{asset('admin/assets/plugins/global/plugins.bundle.js')}}"></script>
 <script src="{{asset('admin/assets/js/scripts.bundle.js')}}"></script>
+<script src="{{asset('admin/assets/js/media.js')}}"></script>
 <!--end::Global Javascript Bundle-->
+<script>
+    function filterMedia(media) {
+        var domain_name = $('#domain_name').val();
+        var url = $(media).data('url');
+        var type = $(media).data('value');
+
+        // ajax setup
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        // ajax setup request start
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: {
+                type: type
+            },
+            success: function (data) {
+                $('.media_row').html(data);
+            }
+        });
+    }
+
+</script>
 <!--begin::Page Custom Javascript(used by this page)-->
 @yield('script')
 <!--end::Page Custom Javascript-->
@@ -75,6 +105,28 @@ $error_message = session()->get("error_message");
     </script>
 
 @endif
+
+<script>
+    $(document).ready(function(){
+
+        "use strict"
+
+        try {
+            $.post('{{ route('media.slide') }}', {_token:'{{ csrf_token() }}'}, function(data){
+                $('#master_media_section').html(data);
+            });
+        } catch (error) {
+            location.reload();
+        }
+
+
+    });
+
+    $('.dropify').dropify();
+
+    $('#datetimepicker1').datetimepicker();
+
+</script>
 
 <!--end::Javascript-->
 

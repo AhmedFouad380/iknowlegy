@@ -45,20 +45,46 @@
                          <div class="col-lg-3 col-3 col-md-3">
                              <div class="d-flex">
                                  <div class="course2-rate">
-                                     <span class="rate"><i class="fa fa-star" aria-hidden="true"></i></span>
-                                     <span class="rate"><i class="fa fa-star" aria-hidden="true"></i></span>
-                                     <span class="rate"><i class="fa fa-star" aria-hidden="true"></i></span>
-                                     <span class="rate"><i class="fa fa-star" aria-hidden="true"></i></span>
-                                     <span class="rate"><i class="fa fa-star" aria-hidden="true"></i></span>
+                                     @if($Course->rate == 1)
+                                         <i class="fas fa-star"></i>
+                                         <i class="far fa-star"></i>
+                                         <i class="far fa-star"></i>
+                                         <i class="far fa-star"></i>
+                                         <i class="far fa-star"></i><!--Empty star-->
+                                     @elseif($Course->rate == 2)
+                                         <i class="fas fa-star"></i>
+                                         <i class="fas fa-star"></i>
+                                         <i class="far fa-star"></i>
+                                         <i class="far fa-star"></i>
+                                         <i class="far fa-star"></i><!--Empty star-->
+                                     @elseif($Course->rate == 3)
+                                         <i class="fas fa-star"></i>
+                                         <i class="fas fa-star"></i>
+                                         <i class="fas fa-star"></i>
+                                         <i class="far fa-star"></i>
+                                         <i class="far fa-star"></i><!--Empty star-->
+                                     @elseif($Course->rate == 4)
+                                         <i class="fas fa-star"></i>
+                                         <i class="fas fa-star"></i>
+                                         <i class="fas fa-star"></i>
+                                         <i class="fas fa-star"></i>
+                                         <i class="far fa-star"></i><!--Empty star-->
+                                     @elseif($Course->rate == 5)
+                                         <i class="fas fa-star"></i>
+                                         <i class="fas fa-star"></i>
+                                         <i class="fas fa-star"></i>
+                                         <i class="fas fa-star"></i>
+                                         <i class="fas fa-star"></i><!--Empty star-->
+                                     @endif
                                  </div>
-{{--                                 <div class="course-price">--}}
-{{--                                     <i class="fa fa-usd" aria-hidden="true"></i>--}}
-{{--                                     <span class="price">{{$Course->price}}</span>--}}
-{{--                                 </div>--}}
-{{--                                 <div class="time">--}}
-{{--                                     <i class="fa fa-clock-o" aria-hidden="true"></i>--}}
-{{--                                     <span>{{$Course->time}}</span>--}}
-{{--                                 </div>--}}
+                                 <div class="course-price">
+                                     <i class="fa fa-users" aria-hidden="true"></i>
+                                     <span class="price">Enrolled : {{$Course->Enrollment->count() }}  </span>
+                                 </div>
+                                 <div class="time">
+                                     <i class="fa fa-clock" aria-hidden="true"></i>
+                                     <span>{{$Course->time}}</span>
+                                 </div>
                              </div>
                          </div>
                     </div>
@@ -186,52 +212,52 @@
                                           </div>
                                       </div>
                                   </div>
-                                  <div class="card">
-                                      <div class="card-header border-header" id="heading-3">
-                                          <h5 class="mb-0">
-                                              <li class="collapsed collapse-title about-this" role="button" data-toggle="collapse" href="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
-                                                  {{__('lang.Course Features')}}
-                                              </li>
-                                          </h5>
-                                      </div>
-                                      <div id="collapse-3" class="collapse" data-parent="#accordion" aria-labelledby="heading-2">
-                                          <div class="card-body">
-                                              <div class="row">
-                                                  <div class="col-lg-12 col-md-12 col-12">
-                                                      <div class="border-div">
-                                                          <div class="row">
-                                                              <div class="col-lg-6 col-md-6 col-6">
-                                                                  <span class="play"><i class="fa fa-clock" aria-hidden="true"></i></span>
-                                                                  <span class="gray-color style-words">{{__('lang.Duration')}}</span>
-                                                              </div>
-                                                              <div class="col-lg-6 col-md-6 col-6">
-                                                                  <div class="d-flex reserved-span">
-                                                                      <span class="gray-color style-words"> {{$Course->time}} </span>
-                                                                  </div>
-                                                              </div>
-                                                          </div>
-                                                      </div>
-                                                  </div>
-                                                  <div class="col-lg-12 col-md-12 col-12">
-                                                      <div class="border-div">
-                                                          <div class="row">
-                                                              <div class="col-lg-6 col-md-6 col-6">
-                                                                  <span class="play"><i class="fa fa-users" aria-hidden="true"></i></span>
-                                                                  <span class="gray-color style-words">{{__('lang.Enrolled')}}</span>
-                                                              </div>
-                                                              <div class="col-lg-6 col-md-6 col-6">
-                                                                  <div class="d-flex reserved-span">
-                                                                      <span class="gray-color style-words"> {{$Course->Enrollment->count()}} </span>
-                                                                  </div>
-                                                              </div>
-                                                          </div>
-                                                      </div>
-                                                  </div>
-                                              </div>
+{{--                                  <div class="card">--}}
+{{--                                      <div class="card-header border-header" id="heading-3">--}}
+{{--                                          <h5 class="mb-0">--}}
+{{--                                              <li class="collapsed collapse-title about-this" role="button" data-toggle="collapse" href="#collapse-2" aria-expanded="false" aria-controls="collapse-2">--}}
+{{--                                                  {{__('lang.Course Features')}}--}}
+{{--                                              </li>--}}
+{{--                                          </h5>--}}
+{{--                                      </div>--}}
+{{--                                      <div id="collapse-3" class="collapse" data-parent="#accordion" aria-labelledby="heading-2">--}}
+{{--                                          <div class="card-body">--}}
+{{--                                              <div class="row">--}}
+{{--                                                  <div class="col-lg-12 col-md-12 col-12">--}}
+{{--                                                      <div class="border-div">--}}
+{{--                                                          <div class="row">--}}
+{{--                                                              <div class="col-lg-6 col-md-6 col-6">--}}
+{{--                                                                  <span class="play"><i class="fa fa-clock" aria-hidden="true"></i></span>--}}
+{{--                                                                  <span class="gray-color style-words">{{__('lang.Duration')}}</span>--}}
+{{--                                                              </div>--}}
+{{--                                                              <div class="col-lg-6 col-md-6 col-6">--}}
+{{--                                                                  <div class="d-flex reserved-span">--}}
+{{--                                                                      <span class="gray-color style-words"> {{$Course->time}} </span>--}}
+{{--                                                                  </div>--}}
+{{--                                                              </div>--}}
+{{--                                                          </div>--}}
+{{--                                                      </div>--}}
+{{--                                                  </div>--}}
+{{--                                                  <div class="col-lg-12 col-md-12 col-12">--}}
+{{--                                                      <div class="border-div">--}}
+{{--                                                          <div class="row">--}}
+{{--                                                              <div class="col-lg-6 col-md-6 col-6">--}}
+{{--                                                                  <span class="play"><i class="fa fa-users" aria-hidden="true"></i></span>--}}
+{{--                                                                  <span class="gray-color style-words">{{__('lang.Enrolled')}}</span>--}}
+{{--                                                              </div>--}}
+{{--                                                              <div class="col-lg-6 col-md-6 col-6">--}}
+{{--                                                                  <div class="d-flex reserved-span">--}}
+{{--                                                                      <span class="gray-color style-words"> {{$Course->Enrollment->count()}} </span>--}}
+{{--                                                                  </div>--}}
+{{--                                                              </div>--}}
+{{--                                                          </div>--}}
+{{--                                                      </div>--}}
+{{--                                                  </div>--}}
+{{--                                              </div>--}}
 
-                                          </div>
-                                      </div>
-                                  </div>
+{{--                                          </div>--}}
+{{--                                      </div>--}}
+{{--                                  </div>--}}
 
                               </div>
                           </div>
@@ -245,6 +271,7 @@
 
        <!-- end section 3  -->
 
+               @if(isset($Course->Rates))
        <!-- this is section 4 -->
        <section class="container" data-aos="fade-up-right">
         <section id="testimonials">
@@ -264,6 +291,7 @@
             <!--testimonials-box-container------>
             <section class="regular slider testimonial-box-container">
                 <!--BOX-1-------------->
+    @foreach($Course->Rates as $rate)
     <div class="testimonial-box">
         <!--top------------------------->
         <div class="box-top">
@@ -271,128 +299,68 @@
             <div class="profile">
                 <!--img---->
                 <div class="profile-img">
-                    <img src="assets/images/beautiful-woman-speaking-by-video-call-with-tablet-outdoors.jpg" />
+                    <img src="{{$rate->User->image}}" />
                 </div>
                 <!--name-and-username-->
                 <div class="name-user">
-                    <strong>ahmed mohamed</strong>
-                    <span>@ahmedmohamed</span>
+                    <strong>{{$rate->User->name}}</strong>
+{{--                    <span>@esraaezzat</span>--}}
                 </div>
             </div>
             <!--reviews------>
             <div class="reviews">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="far fa-star"></i><!--Empty star-->
+                @if($rate->rate == 1)
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i><!--Empty star-->
+                @elseif($rate->rate == 2)
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i><!--Empty star-->
+                @elseif($rate->rate == 3)
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i><!--Empty star-->
+                @elseif($rate->rate == 4)
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i><!--Empty star-->
+                @elseif($rate->rate == 5)
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i><!--Empty star-->
+                    @endif
+
             </div>
         </div>
         <!--Comments---------------------------------------->
         <div class="client-comment">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, quaerat quis? Provident temporibus architecto asperiores nobis maiores nisi a. Quae doloribus ipsum aliquam tenetur voluptates incidunt blanditiis sed atque cumque.</p>
+            <p>{{$rate->comment}}</p>
         </div>
     </div>
-    <!--BOX-2-------------->
-    <div class="testimonial-box">
-        <!--top------------------------->
-        <div class="box-top">
-            <!--profile----->
-            <div class="profile">
-                <!--img---->
-                <div class="profile-img">
-                    <img src="assets/images/beautiful-woman-speaking-by-video-call-with-tablet-outdoors.jpg" />
-                </div>
-                <!--name-and-username-->
-                <div class="name-user">
-                    <strong>esraa ashraf</strong>
-                    <span>@esraaashraf</span>
-                </div>
-            </div>
-            <!--reviews------>
-            <div class="reviews">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i><!--Empty star-->
-            </div>
-        </div>
-        <!--Comments---------------------------------------->
-        <div class="client-comment">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, quaerat quis? Provident temporibus architecto asperiores nobis maiores nisi a. Quae doloribus ipsum aliquam tenetur voluptates incidunt blanditiis sed atque cumque.</p>
-        </div>
-    </div>
-    <!--BOX-3-------------->
-    <div class="testimonial-box">
-        <!--top------------------------->
-        <div class="box-top">
-            <!--profile----->
-            <div class="profile">
-                <!--img---->
-                <div class="profile-img">
-                    <img src="assets/images/beautiful-woman-speaking-by-video-call-with-tablet-outdoors.jpg" />
-                </div>
-                <!--name-and-username-->
-                <div class="name-user">
-                    <strong>ahmedfouad</strong>
-                    <span>ahmedfouad</span>
-                </div>
-            </div>
-            <!--reviews------>
-            <div class="reviews">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="far fa-star"></i><!--Empty star-->
-            </div>
-        </div>
-        <!--Comments---------------------------------------->
-        <div class="client-comment">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, quaerat quis? Provident temporibus architecto asperiores nobis maiores nisi a. Quae doloribus ipsum aliquam tenetur voluptates incidunt blanditiis sed atque cumque.</p>
-        </div>
-    </div>
-    <!--BOX-4-------------->
-    <div class="testimonial-box">
-        <!--top------------------------->
-        <div class="box-top">
-            <!--profile----->
-            <div class="profile">
-                <!--img---->
-                <div class="profile-img">
-                    <img src="assets/images/beautiful-woman-speaking-by-video-call-with-tablet-outdoors.jpg" />
-                </div>
-                <!--name-and-username-->
-                <div class="name-user">
-                    <strong>esraa ezzat</strong>
-                    <span>@esraaezzat</span>
-                </div>
-            </div>
-            <!--reviews------>
-            <div class="reviews">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="far fa-star"></i><!--Empty star-->
-            </div>
-        </div>
-        <!--Comments---------------------------------------->
-        <div class="client-comment">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, quaerat quis? Provident temporibus architecto asperiores nobis maiores nisi a. Quae doloribus ipsum aliquam tenetur voluptates incidunt blanditiis sed atque cumque.</p>
-        </div>
-    </div>
+    @endforeach
             </section>
           </section>
        </section>
        <!-- end section 4  -->
+       @endif
        <!-- this is section 5 -->
+               @if(Auth::guard('web')->check() && \App\Models\Rate::where('user_id',Auth::guard('web')->id())->where('course_id',$Course->id)->count() < 1)
        <section class="container top-5" data-aos="zoom-out-left">
             <div class="row">
                 <div class="col-lg-2 col-md-2 col-2">
                     <div class="comments">
-                        <h4>add review</h4>
+                        <h4>{{__('lang.add review')}}</h4>
                     </div>
                 </div>
                 <div class="col-lg-10 col-md-10 col-10">
@@ -404,12 +372,14 @@
             <div class="row">
                 <!-- <div class="col-lg-1 col-md-1 col-1"></div> -->
                  <div class="col-lg-12 col-md-12 col-12">
+                     <form method="get" action="{{url('addReview')}}">
+                         @csrf
                     <div class="master">
                         <div class="rating-component">
                           <div class="status-msg gray-color">
                             <label>
                                             <input  class="rating_msg" type="hidden" name="rating_msg" value=""/>
-                                        </label>
+                            </label>
                           </div>
                           <div class="stars-box">
                             <i class="star fa fa-star gray-color" title="1 star" data-message="Poor" data-value="1"></i>
@@ -477,12 +447,14 @@
                           </div>
                         </div>
                       </div>
+                     </form>
                  </div>
             </div>
 
 
        </section>
             <!-- this is footer -->
+       @endif
 
                <div class="modal fade" id="exampleModal21" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                    <div class="modal-dialog modal-lg">

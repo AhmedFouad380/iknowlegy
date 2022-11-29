@@ -17,6 +17,23 @@ function success()
     return 200;
 }
 
+function filePath($file)
+{
+    return asset($file);
+}
+function fileUpload($file, $folder)
+{
+    return $file->move('uploads/' . $folder);
+}
+function fileDelete($file)
+{
+    if ($file != null) {
+        if (file_exists(public_path($file))) {
+            unlink(public_path($file));
+        }
+    }
+}
+
 function error()
 {
     return 401;
@@ -285,7 +302,8 @@ function upload($file, $dir)
 {
     $image = time() . uniqid() . '.' . $file->getClientOriginalExtension();
     $file->move('uploads' . '/' . $dir, $image);
-    return $image;
+    $path = 'uploads/'.$dir .'/'.$image;
+    return $path;
 }
 
 function unlinkFile($image, $path)

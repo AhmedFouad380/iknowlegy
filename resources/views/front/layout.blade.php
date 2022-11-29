@@ -128,6 +128,7 @@
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li><a class="dropdown-item" href="{{url('MyCourses')}}">{{__('lang.MyCourses')}}</a></li>
                                 <li><a class="dropdown-item" href="#">{{__('lang.profile')}}</a></li>
+                                <li><a class="dropdown-item" href="{{__('lang.wishlist')}}">{{__('lang.wishlist')}}</a></li>
                                 <li><a class="dropdown-item" href="{{url('logoutUser')}}">{{__('admin.logout')}}</a></li>
                             </ul>
                         </div>
@@ -208,23 +209,23 @@
                                                         <div class="row">
                                                             <div class="col-md-6 col-6 col-lg-6 ">
                                                                 <label>{{__('lang.name')}} <span>*</span></label>
-                                                                <input class="form-control " type="text" placeholder="enter your name">
+                                                                <input class="form-control " type="text"  name="name" placeholder="enter your name">
                                                             </div>
                                                             <input type="hidden" value="" id="package_id" required name="package_id">
                                                             <div class="col-md-6 col-6 col-lg-6 ">
                                                                 <label>{{__('lang.age')}} <span>*</span></label>
-                                                                <input class="form-control " type="number" required placeholder="enter your name">
+                                                                <input class="form-control " type="number" name="age" required placeholder="enter your name">
                                                             </div>
 
                                                             <div class="col-md-12 col-12 col-lg-12">
                                                                 <label>{{__('lang.email')}} <span>*</span></label>
-                                                                <input class="form-control" type="email" required placeholder="enter your email">
+                                                                <input class="form-control" type="email" name="email" required placeholder="enter your email">
                                                             </div>
 
                                                             <div class=" col-md-12 col-12 col-lg-12 ">
                                                                 <label>code <span>*</span></label><label>{{__('lang.phone')}} <span>*</span></label>
                                                                 <div class="d-flex">
-                                                                    <input type="text" class="form-control code"  id="txtPhone2" required>
+                                                                    <input type="text" name="phone"class="form-control code"  id="txtPhone2" required>
                                                                     <input type="tel" class="form-control tel" required>
                                                                 </div>
                                                             </div>
@@ -233,13 +234,13 @@
 
                                                                 <label> {{__('lang.about')}} <span>*</span></label>
                                                                 <br>
-                                                                <textarea class="form-control" cols="69" rows="3"></textarea>
+                                                                <textarea name="" class="form-control" cols="69" rows="3"></textarea>
 
                                                             </div>
 
                                                             <div class="col-md-6 col-6 col-lg-6 ">
                                                                 <label>{{__('lang.password')}} <span>*</span></label>
-                                                                <input class="form-control " type="email" placeholder="enter your password">
+                                                                <input class="form-control " type="password" name="password" placeholder="enter your password">
                                                             </div>
                                                             <div class="col-md-6 col-6 col-lg-6 ">
                                                                 <label>{{__('lang.password_confirmation')}} <span>*</span></label>
@@ -346,7 +347,7 @@
                                                             <div class="col-md-12 col-lg-12 col-12 " style="text-align: right; margin-top:15px">
 
                                                                 <button type="button" class="btn close" data-bs-dismiss="modal">{{__('lang.Close')}}</button>
-                                                                <button type="button" class="btn sign-up">{{__('lang.sign up')}}</button>
+                                                                <button type="submit" class="btn sign-up">{{__('lang.sign up')}}</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -831,14 +832,19 @@ $RejectPayment = session()->get("RejectPayment");
     </script>
 
 @endif
+@if(Auth::guard('web')->check())
+<?php  $check = 1; ?>
+@else
+    <?php  $check = 0; ?>
 
-
+@endif
 <script>
     $('.addWishList').click(function () {
         $(this).toggleClass('red')
 
         id = $(this).data('id');
-        if({{Auth::guard('web')->check()}}){
+       var  check = {{$check}}
+        if(check){
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             type: "get",
@@ -846,14 +852,17 @@ $RejectPayment = session()->get("RejectPayment");
             data: {"id": id,_token: CSRF_TOKEN},
             success: function (data) {
                 // out =  '<span id="cart-count" >' + data + '</span>';
-
+                if(data == 1){
                 // $('#cart-count-data').html(out);
                 Swal.fire("@if(Session('lang') == 'ar' ) تم  @else Success @endif ", "@if(Session('lang') == 'ar' ) تم الاضافة بنجاح   @else Successfully ِAdded To WishList @endif", "success");
+                }else{
+                    Swal.fire("@if(Session('lang') == 'ar' ) تم  @else Success @endif ", "@if(Session('lang') == 'ar' ) تم الحذف بنجاح   @else Successfully Delete From WishList @endif", "success");
 
+                }
             }
         });
         }else{
-            Swal.fire("@if(Session('lang') == 'ar' ) تم  @else Success @endif ", "@if(Session('lang') == 'ar' ) تم الاضافة بنجاح   @else Successfully ِAdded To WishList @endif", "success");
+            Swal.fire("@if(Session('lang') == 'ar' ) عفوا !  @else Sorry ! @endif ", "@if(Session('lang') == 'ar' ) الرجاء تسجيل الدخول اولا   @else Please login first @endif", "error");
 
         }
     });
