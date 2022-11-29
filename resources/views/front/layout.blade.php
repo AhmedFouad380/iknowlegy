@@ -271,7 +271,7 @@
                                                             <div class="col-md-12 col-lg-12 col-12 " style="text-align: right;">
 
                                                                 <button type="button" class="btn close" data-bs-dismiss="modal">{{__('lang.Close')}}</button>
-                                                                <button type="button" class="btn sign-up">{{__('lang.sign up')}}</button>
+                                                                <button type="submit" class="btn sign-up">{{__('lang.sign up')}}</button>
                                                             </div>
                                                         </div>
                                                     </div>
