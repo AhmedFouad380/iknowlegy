@@ -74,13 +74,13 @@ class AuthController extends Controller
             'password' => 'min:6|required|confirmed',
             'phone' => 'required|unique:users',
             'code' => 'required',
-            'address' => 'required',
         ]);
 
         $data = new Instructor();
         $data->name=$request->name;
         $data->email=$request->email;
         $data->code=$request->code;
+        $data->about=$request->about;
         $data->phone=$request->phone;
         $data->password=Hash::make($request->password);
         $data->save();

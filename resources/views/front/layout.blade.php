@@ -325,7 +325,7 @@
                                                                 <label>{{__('lang.code')}} <span>*</span></label><label>{{__('lang.phone')}} <span>*</span></label>
                                                                 <div class="d-flex">
                                                                     <input type="text" name="code" required id="txtPhone" class="form-control code">
-                                                                    <input type="tel" name="phone"  required class="form-control tel">
+                                                                    <input type="number" name="phone"  required class="form-control tel">
                                                                 </div>
                                                             </div>
 
