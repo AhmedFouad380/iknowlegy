@@ -71,7 +71,7 @@ class AuthController extends Controller
         $this->validate(request(), [
             'name' => 'required|string',
             'email' => 'required|email|unique:instructors',
-            'password' => 'min:6|required|confirmed',
+            'password' => 'min:6|required',
             'phone' => 'required|unique:instructors',
 //            'code' => 'required',
         ]);
@@ -85,7 +85,7 @@ class AuthController extends Controller
         $data->password=Hash::make($request->password);
         $data->save();
 
-        Auth::gaurd('instructor')->login($data);
+        Auth::guard('instructor')->login($data);
 
         return back()->with('message','success');
     }
