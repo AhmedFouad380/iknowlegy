@@ -70,10 +70,10 @@ class AuthController extends Controller
     public function RegisterInstructor(Request $request){
         $this->validate(request(), [
             'name' => 'required|string',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email|unique:instructors',
             'password' => 'min:6|required|confirmed',
-            'phone' => 'required|unique:users',
-            'code' => 'required',
+            'phone' => 'required|unique:instructors',
+//            'code' => 'required',
         ]);
 
         $data = new Instructor();
